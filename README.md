@@ -13,18 +13,9 @@
 
 ModelingPaperKit 面向数学建模竞赛论文的 **XeLaTeX 排版工作流**：共享 `paperkit-*.sty` 引擎，按赛事提供独立 `templates/<赛事>/` 插件。复制模板目录、填写 `sections/`、一键编译即可出 PDF。
 
-```
-                    ┌─────────────────────────────────────┐
-                    │           core/ 引擎                 │
-                    │  paperkit-base │ math │ utils        │
-                    └──────────────┬──────────────────────┘
-           ┌──────────┬───────────┼───────────┬──────────┐
-           ▼          ▼           ▼           ▼          │
-      templates/  templates/  templates/  templates/    │
-        cumcm       mcm         wuyi       beijing      │
-       (2025)      (2026)      (2026)      (2026)       │
-        中文         英文         中文         中文         │
-```
+<p align="center">
+  <img src="docs/assets/architecture.svg" alt="Core + Plugins 架构：core 引擎连接 cumcm、mcm、wuyi、beijing 四套模板" width="720" />
+</p>
 
 ## 赛事覆盖
 
@@ -58,7 +49,8 @@ python scripts/build.py --target cumcm
 | `python scripts/build.py --target mcm` | 美赛 (MCM/ICM) |
 | `python scripts/build.py --target wuyi` | 五一杯 |
 | `python scripts/build.py --target beijing` | 北京赛 |
-| `python scripts/build.py --target all` | 编译全部四套模板 |
+| `python scripts/build.py --target example` | 图文并茂示例论文（需先运行 `generate_figures.py`） |
+| `python scripts/build.py --target all` | 编译全部模板与示例（5 个 PDF） |
 | `python scripts/build.py --target cumcm --clean` | 编译前清理辅助文件 |
 | `python scripts/build.py --target cumcm --bibtex` | 启用 BibTeX 链（xelatex → bibtex → xelatex ×2） |
 | `python scripts/build.py --target cumcm --watch` | 监视 `.tex` 变更并自动重编译 |
@@ -122,9 +114,11 @@ ModelingPaperKit/
 │   ├── task_runner.py             # CURSOR_TASKS.md 辅助
 │   └── generate_dummy_data.py     # 合成示例数据
 ├── examples/
-│   ├── cumcm_walkthrough/         # 使用示例说明
+│   ├── cumcm_walkthrough/         # 图文并茂示例论文（main.tex + figures/）
 │   └── dummy_data/                # 脱敏 CSV（非真实赛题数据）
 ├── docs/
+│   ├── assets/
+│   │   └── architecture.svg       # README 架构图
 │   ├── getting-started.md
 │   ├── template-guide.md
 │   └── faq.md

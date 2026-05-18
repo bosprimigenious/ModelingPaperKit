@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Phase 6.1 编译验证：三套模板全量编译并检查 PDF / 日志."""
+"""全量编译验证：检查各 TARGET 的 PDF 与日志."""
 
 from __future__ import annotations
 
@@ -9,12 +9,20 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-TARGETS = ("cumcm", "mcm", "wuyi", "beijing")
+TARGETS = ("cumcm", "mcm", "wuyi", "beijing", "example")
 MAIN = {
     "cumcm": "main_cumcm",
     "mcm": "main_mcm",
     "wuyi": "main_wuyi",
     "beijing": "main_beijing",
+    "example": "main",
+}
+OUTPUT_DIR = {
+    "cumcm": "templates/cumcm",
+    "mcm": "templates/mcm",
+    "wuyi": "templates/wuyi",
+    "beijing": "templates/beijing",
+    "example": "examples/cumcm_walkthrough",
 }
 
 
@@ -27,7 +35,7 @@ def run_build() -> int:
 def check_target(name: str) -> list[str]:
     issues: list[str] = []
     stem = MAIN[name]
-    out = REPO_ROOT / "templates" / name / "out"
+    out = REPO_ROOT / OUTPUT_DIR[name] / "out"
     pdf = out / f"{stem}.pdf"
     log = out / f"{stem}.log"
 
@@ -72,7 +80,7 @@ def main() -> None:
             print(f"  - {item}")
         sys.exit(1)
 
-    print("\n[VERIFY] PASSED — 三套模板编译通过")
+    print(f"\n[VERIFY] PASSED — {len(TARGETS)} 个目标编译通过")
     sys.exit(0)
 
 
