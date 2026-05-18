@@ -3,6 +3,27 @@
 %  注意：电子版论文中不得出现此页，仅纸质版使用
 %  % TODO(director): 请核对是否与 2026 年国赛最新承诺书版式一致
 % ============================================================
+
+% ── Token 默认值（在 main_cumcm.tex 中用 \cumcmXxx{} 覆盖） ──
+\providecommand{\pkb@tihao}{[在此填写题号]}
+\providecommand{\pkb@baominghao}{[在此填写队号]}
+\providecommand{\pkb@schoolname}{[在此填写学校全称]}
+\providecommand{\pkb@membera}{[队员一姓名]}
+\providecommand{\pkb@memberb}{[队员二姓名]}
+\providecommand{\pkb@memberc}{[队员三姓名]}
+\providecommand{\pkb@supervisor}{[指导教师姓名]}
+\providecommand{\pkb@submitmonth}{[月]}
+\providecommand{\pkb@submitday}{[日]}
+
+\newcommand{\cumcmTihao}[1]{\renewcommand{\pkb@tihao}{#1}}
+\newcommand{\cumcmBaominghao}[1]{\renewcommand{\pkb@baominghao}{#1}}
+\newcommand{\cumcmSchoolname}[1]{\renewcommand{\pkb@schoolname}{#1}}
+\newcommand{\cumcmMemberA}[1]{\renewcommand{\pkb@membera}{#1}}
+\newcommand{\cumcmMemberB}[1]{\renewcommand{\pkb@memberb}{#1}}
+\newcommand{\cumcmMemberC}[1]{\renewcommand{\pkb@memberc}{#1}}
+\newcommand{\cumcmSupervisor}[1]{\renewcommand{\pkb@supervisor}{#1}}
+\newcommand{\cumcmSubmitDate}[2]{\renewcommand{\pkb@submitmonth}{#1}\renewcommand{\pkb@submitday}{#2}}
+
 \thispagestyle{plain}
 
 \vspace*{0.1em}
@@ -31,43 +52,42 @@
 
 \vspace{1.1em}
 
-% ═══════════════════════════════════════════
-% 以下填写本队报名信息（与报名系统一致）
-% ═══════════════════════════════════════════
 \noindent {\zihao{5} 参赛题号（从 A/B/C/D/E 中选择一项填写）：}%
-\underline{\makebox[7.2cm][c]{[在此填写题号]}}
+\underline{\makebox[7.2cm][c]{\pkb@tihao}}
 
 \vspace{0.65em}
 
 \noindent {\zihao{5} 参赛队号（12 位数字全国统一编号）：}%
-\underline{\makebox[7.8cm][c]{[在此填写队号]}}
+\underline{\makebox[7.8cm][c]{\pkb@baominghao}}
 
 \vspace{0.65em}
 
-\noindent 参赛学校（完整的学校全称，不含院系名）：\underline{\makebox[7.0cm][c]{[在此填写学校全称]}}
+\noindent 参赛学校（完整的学校全称，不含院系名）：\underline{\makebox[7.0cm][c]{\pkb@schoolname}}
 
 \vspace{0.65em}
 
 \noindent 参赛队员（打印并签名）：
 \vspace{0.2em}
 
-\hspace*{3em} 1. \underline{\makebox[7.0cm][c]{[队员一姓名]}}
+\hspace*{3em} 1. \underline{\makebox[7.0cm][c]{\pkb@membera}}
 
 \vspace{0.55em}
 
-\hspace*{3em} 2. \underline{\makebox[7.0cm][c]{[队员二姓名]}}
+\hspace*{3em} 2. \underline{\makebox[7.0cm][c]{\pkb@memberb}}
 
 \vspace{0.55em}
 
-\hspace*{3em} 3. \underline{\makebox[7.0cm][c]{[队员三姓名]}}
+\hspace*{3em} 3. \underline{\makebox[7.0cm][c]{\pkb@memberc}}
 
 \vspace{0.65em}
 
-\noindent 指导教师或指导教师组负责人（打印并签名）：\underline{\makebox[5.5cm][c]{[指导教师姓名]}}
+\noindent 指导教师或指导教师组负责人（打印并签名）：\underline{\makebox[5.5cm][c]{\pkb@supervisor}}
 
 \vspace{0.65em}
 
-\noindent 日期：\underline{\makebox[2.0cm][c]{\the\year}} 年 \underline{\makebox[1.3cm][c]{[月]}} 月 \underline{\makebox[1.3cm][c]{[日]}} 日
+\noindent 日期：\underline{\makebox[2.0cm][c]{\the\year}} 年
+\underline{\makebox[1.3cm][c]{\pkb@submitmonth}} 月
+\underline{\makebox[1.3cm][c]{\pkb@submitday}} 日
 
 \vfill
 
