@@ -100,43 +100,37 @@
 \AtBeginEnvironment{table}{\centering}
 
 % ── 插图占位字体（跨 ctexart / article；在正文中按宏是否存在选择） ──
-\newcommand{\pkb@figtitlewrap}[1]{%
-  {\ifcsname heiti\endcsname\heiti\else\bfseries\fi ##1}%
-}
-\newcommand{\pkb@fignotewrap}[1]{%
-  {\ifcsname zihao\endcsname\zihao{5}\else\small\fi ##1}%
-}
-\newcommand{\pkb@fignotelabel}{%
+\makeatletter
+\def\pkb@figtitlewrap#1{{\ifcsname heiti\endcsname\heiti\else\bfseries\fi ##1}}
+\def\pkb@fignotewrap#1{{\ifcsname zihao\endcsname\zihao{5}\else\small\fi ##1}}
+\def\pkb@fignotelabel{%
   \ifcsname heiti\endcsname 制图说明：\else Figure note:\fi
 }
 
 % ── 图片占位 / 自动插图宏 ──
 % \figplot{题注}{占位高度}{label}{占位说明}{文件名}{制图说明(可空)}
-\newcommand{\pkb@includefig}[1]{%
-  \includegraphics[width=0.845\textwidth]{##1}%
-}
-\newcommand{\figplot}[6]{%
+\def\figplot#1#2#3#4#5#6{%
   \begin{figure}[H]
     \centering
-    \IfFileExists{##5}{%
-      \pkb@includefig{##5}%
-    }{%
-      \IfFileExists{./figures/##5}{%
-        \pkb@includefig{./figures/##5}%
-      }{%
-        \IfFileExists{../02_figures/##5}{%
-          \pkb@includefig{../02_figures/##5}%
-        }{%
-          \fbox{%
-            \parbox[c][##2][c]{0.845\textwidth}{%
-              \centering
-              \pkb@figtitlewrap{##1}\\[0.8em]
-              \pkb@fignotewrap{##4}%
-            }%
-          }%
+    \def\pkb@figpath{}%
+    \IfFileExists{##5}{\def\pkb@figpath{##5}}{}%
+    \ifx\pkb@figpath\empty
+      \IfFileExists{./figures/##5}{\def\pkb@figpath{./figures/##5}}{}%
+    \fi
+    \ifx\pkb@figpath\empty
+      \IfFileExists{../02_figures/##5}{\def\pkb@figpath{../02_figures/##5}}{}%
+    \fi
+    \ifx\pkb@figpath\empty
+      \fbox{%
+        \parbox[c][##2][c]{0.845\textwidth}{%
+          \centering
+          \pkb@figtitlewrap{##1}\\[0.8em]
+          \pkb@fignotewrap{##4}%
         }%
       }%
-    }%
+    \else
+      \includegraphics[width=0.845\textwidth]{\pkb@figpath}%
+    \fi
     \caption{##1}%
     \ifblank{##6}{}{%
       \begingroup
@@ -150,11 +144,12 @@
     \label{##3}%
   \end{figure}%
 }
+\makeatother
 
 % ── 子图内插图 ──
-\newcommand{\FigPlotSubContent}[3]{%
-  \includegraphics[width=\linewidth]{##3}%
-}
+\makeatletter
+\def\FigPlotSubContent#1#2#3{\includegraphics[width=\linewidth]{##3}}
+\makeatother
 
 \captionsetup[subfigure]{font=small,skip=4pt}
 
