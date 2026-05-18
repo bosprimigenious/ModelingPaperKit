@@ -3,7 +3,7 @@
 %  选项: zh | en | auto (默认 auto：检测 ctex 决定语言)
 %
 % 定理: definition, theorem, lemma, remark, property, ...
-% 命令: \mat, \vec, \trans, \R, \argmin, \argmax
+% 命令: \mat, \vb, \trans, \R, \argmin, \argmax
 % 用法: \usepackage[en]{paperkit-math}
 % ============================================================
 \NeedsTeXFormat{LaTeX2e}
@@ -68,8 +68,7 @@
 % ── 矩阵 / 向量快捷命令 ──
 \newcommand{\mat}[1]{\boldsymbol{\mathrm{#1}}}
 \newcommand{\trans}{\mathsf{T}}
-% TODO(director): \vec 与 LaTeX 内置重音同名；此处重定义为粗体向量，是否接受？
-\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\vb}[1]{\boldsymbol{#1}}
 
 % ── 常用数学命令 ──
 \newcommand{\R}{\mathbb{R}}
