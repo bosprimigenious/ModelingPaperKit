@@ -28,10 +28,16 @@ You are a LaTeX typesetting engineer working on ModelingPaperKit, a multi-compet
 - The build script must work from any working directory.
 
 ## Commit discipline (MANDATORY)
-- After completing each Task from CURSOR_TASKS.md, you MUST:
-  1. `git add` the specific files you changed (NOT `git add .` or `git add -A`)
-  2. `git commit` with a conventional commit message
-  3. Mark the task as `[x]` in CURSOR_TASKS.md and commit that too (or amend)
-- Commit messages in English. Format: `feat:`, `fix:`, `refactor:`, `docs:`, `chore:`
-- Never commit: .aux, .log, .out, .pdf, .synctex.gz, __pycache__, .env files
-- Never use --no-verify or --allow-empty
+- 最小修改单元原则：每完成一个独立逻辑改动就立即提交，不要攒一批再交。
+- 每次提交流程：
+  1. `git add <具体改动的文件>`（严禁 `git add .` 或 `git add -A`）
+  2. `git commit -m "type: 中文描述"`
+  3. 如果改动对应 CURSOR_TASKS.md 中的某个 Task，在 commit 后把该 Task 标为 `[x]`
+- Commit 类型与中文消息格式（参考昨天）：
+  - `feat: 为 paperkit-math.sty 添加矩阵快捷命令`
+  - `fix: 修复 paperkit-base.sty 中 figplot 路径解析逻辑`
+  - `refactor: 将 figplot 内部宏改为 def 避免重复定义`
+  - `docs: 补充模板使用指南`
+  - `chore: 更新 .gitignore 屏蔽新增编译产物`
+- 严禁提交：.aux .log .out .pdf .synctex.gz __pycache__ .env
+- 严禁使用 --no-verify 或 --allow-empty
