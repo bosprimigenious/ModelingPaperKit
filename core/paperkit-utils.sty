@@ -98,6 +98,17 @@
 \newcommand{\email}[1]{[已脱敏]}
 \newcommand{\phone}[1]{[已脱敏]}
 
+% ── 摘要关键词（中英） ──
+\newcommand{\keywords}[1]{%
+  \par\noindent
+  \ifpkuLangZh
+    {\ifcsname heiti\endcsname\heiti\else\bfseries\fi 关键词：}%
+  \else
+    {\bfseries Keywords:}%
+  \fi
+  ~#1\par
+}
+
 % 上标引用见 paperkit-math.sty 的 \upcite
 \newcommand{\supercite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
 
@@ -139,6 +150,18 @@
   \Crefformat{theorem}{定理~##2##1##3}%
   \Crefformat{lemma}{引理~##2##1##3}%
   \Crefformat{definition}{定义~##2##1##3}%
+  \crefmultiformat{figure}{图~（##2##1##3）}%
+  \crefmultiformat{table}{表~（##2##1##3）}%
+  \crefmultiformat{equation}{式~（##2##1##3）}%
+  \crefmultiformat{theorem}{定理~（##2##1##3）}%
+  \crefmultiformat{lemma}{引理~（##2##1##3）}%
+  \crefmultiformat{definition}{定义~（##2##1##3）}%
+  \crefrangeformat{figure}{图~（##3##1##2~##5）}%
+  \crefrangeformat{table}{表~（##3##1##2~##5）}%
+  \crefrangeformat{equation}{式~（##3##1##2~##5）}%
+  \crefrangeformat{theorem}{定理~（##3##1##2~##5）}%
+  \crefrangeformat{lemma}{引理~（##3##1##2~##5）}%
+  \crefrangeformat{definition}{定义~（##3##1##2~##5）}%
 \else
   \crefformat{figure}{Fig.~##2##1##3}%
   \crefformat{table}{Table~##2##1##3}%
@@ -157,6 +180,18 @@
   \Crefformat{theorem}{Theorem~##2##1##3}%
   \Crefformat{lemma}{Lemma~##2##1##3}%
   \Crefformat{definition}{Definition~##2##1##3}%
+  \crefmultiformat{figure}{(Figs.~##2##1##3)}%
+  \crefmultiformat{table}{(Tables~##2##1##3)}%
+  \crefmultiformat{equation}{(Eqs.~##2##1##3)}%
+  \crefmultiformat{theorem}{(Theorems~##2##1##3)}%
+  \crefmultiformat{lemma}{(Lemmas~##2##1##3)}%
+  \crefmultiformat{definition}{(Definitions~##2##1##3)}%
+  \crefrangeformat{figure}{Figs.~##3##1##2--##5}%
+  \crefrangeformat{table}{Tables~##3##1##2--##5}%
+  \crefrangeformat{equation}{Eqs.~##3##1##2--##5}%
+  \crefrangeformat{theorem}{Theorems~##3##1##2--##5}%
+  \crefrangeformat{lemma}{Lemmas~##3##1##2--##5}%
+  \crefrangeformat{definition}{Definitions~##3##1##2--##5}%
 \fi
 
 \endinput
