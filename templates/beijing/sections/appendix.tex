@@ -1,0 +1,26 @@
+% ============================================================
+%  附录
+% ============================================================
+
+\section{主要代码清单}
+
+% 推荐使用 \lstinputlisting 引用外部代码文件（便于版本管理）：
+% \lstinputlisting[language=Python, caption={数据预处理脚本}]{./code/preprocess.py}
+
+% 内联代码示例：
+\begin{lstlisting}[language=Python, caption={示例：读取数据并计算均值}]
+import pandas as pd
+
+def load_data(path: str) -> pd.DataFrame:
+    return pd.read_csv(path)
+
+if __name__ == "__main__":
+    df = load_data("../examples/dummy_data/sample_series.csv")
+    print(df["value"].mean())
+\end{lstlisting}
+
+注：完整的代码文件应在提交时一并打包。
+
+\section{补充图表}
+
+% 在此放置正文中未包含的补充性图表。
