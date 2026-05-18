@@ -1,7 +1,11 @@
 % ============================================================
 %  paperkit-base.sty — ModelingPaperKit 核心排版引擎
-%  页面、字体、边距、标题、图表、代码块等底层逻辑
-%  兼容 ctexart (中文赛事) 与 article (英文赛事)
+%
+% 主要命令:
+%   \figplot{caption}{height}{label}{placeholder}{file}{note}
+%   \FigPlotSubContent{a}{b}{file}  — 子图内容
+%   \topline / \midline / \bottomline — 三线表
+%   列类型 Y (居中 X), J (左对齐 X)
 % ============================================================
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{paperkit-base}[2026/05/18 v1.0 ModelingPaperKit Base Engine]
