@@ -17,7 +17,12 @@
 \ExecuteOptions{auto}
 \ProcessOptions\relax
 \ifpkuLangSet\else
-  \@ifpackageloaded{ctex}{\pkuLangZhtrue}{\pkuLangZhfalse}%
+  \@ifclassloaded{ctexart}{\pkuLangZhtrue}{%
+    \@ifclassloaded{ctexrep}{\pkuLangZhtrue}{%
+      \@ifclassloaded{ctexbook}{\pkuLangZhtrue}{%
+        \@ifpackageloaded{ctex}{\pkuLangZhtrue}{\pkuLangZhfalse}%
+      }}%
+  }%
 \fi
 \makeatother
 
@@ -129,39 +134,12 @@
 
 % ── cleveref（须在 hyperref 之后） ──
 \RequirePackage{cleveref}
+\makeatletter
 \ifpkuLangZh
   \crefname{figure}{图}{图}%
   \crefname{table}{表}{表}%
   \crefname{equation}{式}{式}%
-  \crefformat{figure}{图~##2##1##3}%
-  \crefformat{table}{表~##2##1##3}%
-  \crefformat{equation}{式~##2##1##3}%
-  \Crefformat{figure}{图~##2##1##3}%
-  \Crefformat{table}{表~##2##1##3}%
-  \Crefformat{equation}{式~##2##1##3}%
-  \crefformat{theorem}{定理~##2##1##3}%
-  \crefformat{lemma}{引理~##2##1##3}%
-  \crefformat{definition}{定义~##2##1##3}%
-  \crefformat{corollary}{推论~##2##1##3}%
-  \crefformat{assumption}{假设~##2##1##3}%
-  \crefformat{remark}{注~##2##1##3}%
-  \crefformat{property}{性质~##2##1##3}%
-  \crefformat{example}{例~##2##1##3}%
-  \Crefformat{theorem}{定理~##2##1##3}%
-  \Crefformat{lemma}{引理~##2##1##3}%
-  \Crefformat{definition}{定义~##2##1##3}%
-  \crefmultiformat{figure}{图~（##2##1##3）}%
-  \crefmultiformat{table}{表~（##2##1##3）}%
-  \crefmultiformat{equation}{式~（##2##1##3）}%
-  \crefmultiformat{theorem}{定理~（##2##1##3）}%
-  \crefmultiformat{lemma}{引理~（##2##1##3）}%
-  \crefmultiformat{definition}{定义~（##2##1##3）}%
-  \crefrangeformat{figure}{图~（##3##1##2~##5）}%
-  \crefrangeformat{table}{表~（##3##1##2~##5）}%
-  \crefrangeformat{equation}{式~（##3##1##2~##5）}%
-  \crefrangeformat{theorem}{定理~（##3##1##2~##5）}%
-  \crefrangeformat{lemma}{引理~（##3##1##2~##5）}%
-  \crefrangeformat{definition}{定义~（##3##1##2~##5）}%
+  \crefname{algorithm}{算法}{算法}%
 \else
   \crefformat{figure}{Fig.~##2##1##3}%
   \crefformat{table}{Table~##2##1##3}%
@@ -193,5 +171,6 @@
   \crefrangeformat{lemma}{Lemmas~##3##1##2--##5}%
   \crefrangeformat{definition}{Definitions~##3##1##2--##5}%
 \fi
+\makeatother
 
 \endinput

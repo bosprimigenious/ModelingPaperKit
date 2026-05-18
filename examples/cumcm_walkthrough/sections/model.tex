@@ -31,8 +31,8 @@ $\hat{\vb{\beta}}=(\mat{X}^\top\mat{X})^{-1}\mat{X}^\top\vb{y}$。
 对中心化后的特征，条件数 $\kappa(\mat{X}^\top\mat{X})$ 显著下降，有利于求解稳定\upcite{smith2024synthetic}。
 \end{lemma}
 
-整体流程见 \cref{fig:workflow}；\cref{fig:timeseries} 与 \cref{fig:classification} 共同支撑结果分析
-（亦可用 \ref{fig:workflow}--\ref{fig:classification} 表示图号区间）。
+整体流程见 \cref{fig:workflow}；\cref{fig:timeseries} 与 \cref{fig:classification} 共同支撑结果分析。
+图号区间见 \ref{fig:workflow}--\ref{fig:classification}（多图可用逗号分隔的 \verb|\cref|，见 core 文档）。
 
 \figplot{建模流程示意}{3.6cm}{fig:workflow}{%
   运行 generate\_figures.py 生成}{fig_workflow.pdf}{%
