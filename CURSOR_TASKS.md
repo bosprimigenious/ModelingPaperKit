@@ -164,6 +164,41 @@
 
 ---
 
+## Phase 8: 补齐 CUMCMThesis 剩余排版能力
+
+> 第二轮深度对比。Phase 7 已集成 cleveref/浮动体/TOC/Token，本阶段补齐 cross-ref 多引用、图表标题样式、关键词命令、列表优化。
+
+### Task 8.1 — 补齐 cleveref 多引用格式
+- [ ] 在 `core/paperkit-utils.sty` 的 cleveref 块中补充 `\crefrangeformat` 和 `\crefmultiformat`
+- [ ] 覆盖 figure / table / equation / theorem / lemma / definition（中英双语）
+- [ ] 示例效果：`\cref{fig:a,fig:b,fig:c}` → "图~(1, 2, 3)"；`\crefrange{fig:a}{fig:c}` → "图~(1~3)"
+
+### Task 8.2 — 添加图表标题样式
+- [ ] 在 `core/paperkit-base.sty` 末尾添加 `\captionsetup`（中文模板下）：
+  - figure: 宋体小四加粗，hang 缩进，标题放底部
+  - table: 宋体小四加粗，hang 缩进，标题放顶部
+- [ ] 英文模板保持原有 caption 样式不变
+
+### Task 8.3 — 添加 `\keywords` 关键词命令
+- [ ] 在 `core/paperkit-utils.sty` 添加 `\newcommand{\keywords}[1]`（基于 `\ifpkuLangZh` 显示"关键词"或"Keywords"）
+- [ ] 格式：`{\noindent\heiti 关键词：}~{#1}`（中文）/ `{\noindent\bfseries Keywords:}~{#1}`（英文）
+
+### Task 8.4 — 优化列表环境间距
+- [ ] 在 `core/paperkit-base.sty` 添加 `\setlist` 全局配置（需 `\RequirePackage{enumitem}`）
+- [ ] 参数：`topsep=0.3em, itemsep=0ex plus 0.1ex, leftmargin=1.5em`
+- [ ] 中文论文列表紧凑，不浪费版面对
+
+### Task 8.5 — CUMCM 模板中文节号
+- [ ] 在 `templates/cumcm/main_cumcm.tex` 的 preamble 区添加：
+  ```latex
+  \renewcommand{\thesection}{\chinese{section}、}
+  ```
+  使一级标题显示为"一、问题重述"而非"1 问题重述"
+- [ ] 同时更新 `templates/wuyi/main_wuyi.tex` 同步此配置
+- [ ] 确保 MCM 模板不受影响
+
+---
+
 ## 执行说明
 
 1. 按 Phase 顺序执行，每个 Task 完成后提交一个 commit
