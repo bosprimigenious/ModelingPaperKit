@@ -40,6 +40,16 @@
   bindingoffset=0pt
 }
 
+% ── 浮动体版面参数（参考 CUMCMThesis） ──
+\renewcommand*{\textfraction}{0.05}
+\renewcommand*{\topfraction}{0.9}
+\renewcommand*{\bottomfraction}{0.8}
+\renewcommand*{\floatpagefraction}{0.85}
+
+% ── 插图搜索路径与扩展名 ──
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg,.eps}
+\graphicspath{{./figures/}{../02_figures/}}
+
 % ── 正文字体与行距 (可由模板覆盖) ──
 \providecommand{\pkb@mainfont}{Times New Roman}
 \providecommand{\pkb@cjkmainfont}{SimSun}
@@ -197,6 +207,22 @@
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 \newcolumntype{J}{>{\raggedright\arraybackslash}X}
 
-% hyperref 在 paperkit-utils.sty 末尾统一加载（确保位于所有宏包之后）
+% hyperref / cleveref 在 paperkit-utils.sty 中于 hyperref 之后加载
+
+% ── 目录格式（仅中文 ctex 模板） ──
+\makeatletter
+\@ifpackageloaded{ctex}{%
+  \RequirePackage{tocloft}%
+  \AtBeginDocument{%
+    \ifcsname heiti\endcsname
+      \cftsecfont{\heiti\zihao{4}}%
+    \else
+      \cftsecfont{\bfseries\large}%
+    \fi
+    \cftsecdotsep{4.5}%
+    \cftbeforesecskip{7pt}%
+  }%
+}{}
+\makeatother
 
 \endinput
