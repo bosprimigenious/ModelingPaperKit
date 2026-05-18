@@ -17,10 +17,14 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 BUILD_PY = REPO_ROOT / "scripts" / "build.py"
 TEMPLATE_ZH = REPO_ROOT / "templates" / "cumcm"
 TEMPLATE_EN = REPO_ROOT / "templates" / "mcm"
+BUILTIN_TEMPLATES = ("cumcm", "mcm", "wuyi", "beijing")
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="创建新赛事 LaTeX 模板")
+    parser = argparse.ArgumentParser(
+        description="创建新赛事 LaTeX 模板",
+        epilog=f"内置模板: {', '.join(BUILTIN_TEMPLATES)}",
+    )
     parser.add_argument("--name", required=True, help="赛事标识 (小写英文，如 apmcm)")
     parser.add_argument(
         "--lang",
@@ -54,8 +58,8 @@ def register_target(name: str, lang: str) -> None:
         raise RuntimeError("未在 build.py 中找到 TARGETS 字典")
     text = text.replace(marker, marker + "\n" + entry, 1)
     text = text.replace(
-        'choices=["cumcm", "mcm", "wuyi", "all"]',
-        f'choices=["cumcm", "mcm", "wuyi", "{name}", "all"]',
+        'choices=["cumcm", "mcm", "wuyi", "beijing", "all"]',
+        f'choices=["cumcm", "mcm", "wuyi", "beijing", "{name}", "all"]',
         1,
     )
     BUILD_PY.write_text(text, encoding="utf-8")

@@ -37,6 +37,11 @@ TARGETS = {
         "main": "main_wuyi.tex",
         "description": "五一杯 (Wuyi Cup)",
     },
+    "beijing": {
+        "dir": "templates/beijing",
+        "main": "main_beijing.tex",
+        "description": "北京赛 (Beijing)",
+    },
 }
 
 ERROR_LINE_RE = re.compile(r"^!\s*(.+)$", re.MULTILINE)
@@ -50,7 +55,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--target",
         default="cumcm",
-        choices=["cumcm", "mcm", "wuyi", "all"],
+        choices=["cumcm", "mcm", "wuyi", "beijing", "all"],
         help="选择目标赛事模板 (default: cumcm)",
     )
     parser.add_argument(

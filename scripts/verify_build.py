@@ -9,8 +9,13 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-TARGETS = ("cumcm", "mcm", "wuyi")
-MAIN = {"cumcm": "main_cumcm", "mcm": "main_mcm", "wuyi": "main_wuyi"}
+TARGETS = ("cumcm", "mcm", "wuyi", "beijing")
+MAIN = {
+    "cumcm": "main_cumcm",
+    "mcm": "main_mcm",
+    "wuyi": "main_wuyi",
+    "beijing": "main_beijing",
+}
 
 
 def run_build() -> int:
