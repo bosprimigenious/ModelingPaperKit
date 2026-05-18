@@ -36,6 +36,9 @@
 
 \setstretch{1.0}
 
+% ── 一级节号：目录与引用显示为「一、」 ──
+\renewcommand{\thesection}{\chinese{section}、}
+
 % ── 标题格式 ──
 \titleformat{\section}
   {\centering\heiti\zihao{4}}
@@ -72,8 +75,10 @@
 % 第一页：五一杯承诺书（电子版提交请注释掉下一行）
 % ============================================================
 \input{sections/cover}
-% 若赛方要求 AI 使用声明，取消下一行注释；否则删除 sections/ai_declaration.tex
-% \input{sections/ai_declaration}
+% ============================================================
+% AI 工具使用声明（如赛方不要求可注释掉）
+% ============================================================
+\input{sections/ai_declaration}
 
 \clearpage
 
