@@ -15,7 +15,7 @@
 
 ### Task 1.2 — 增强 `core/paperkit-math.sty`
 - [x] 添加更多常用数学环境（如 `remark`, `property` 等）
-- [x] 添加矩阵快捷命令：`\mat`, `\vec`, `\trans`
+- [x] 添加矩阵快捷命令：`\mat`, `\vb`, `\trans`（向量用 `\vb`，不覆盖内置 `\vec`）
 - [x] 确保定理环境同时支持中英文（通过语言选项）
 
 ### Task 1.3 — 增强 `core/paperkit-utils.sty`

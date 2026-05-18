@@ -24,6 +24,10 @@ python scripts/build.py --target cumcm
 
 将图片放入 `figures/` 或 `../02_figures/`，文件名与 `\figplot` 第 5 个参数一致。
 
+## 向量符号 `\vb` 与 `\vec`
+
+`paperkit-math` 提供 `\vb{x}` 表示粗体向量。请勿使用已移除的 `\renewcommand{\vec}` 方案；需要箭头时请保留 LaTeX 内置 `$\vec{x}$`。
+
 ## BibTeX 参考文献
 
 ```bash
