@@ -53,19 +53,19 @@
 ## Phase 3: 构建系统
 
 ### Task 3.1 — 完善 `scripts/build.py`
-- [ ] 添加 `--bibtex` 选项支持 BibTeX 编译链
-- [ ] 添加编译错误检测与友好提示（解析 .log 文件中的 Error 行）
-- [ ] 支持自定义 TeX 引擎路径
-- [ ] 添加 `--watch` 模式（文件变化自动重编译）
+- [x] 添加 `--bibtex` 选项支持 BibTeX 编译链
+- [x] 添加编译错误检测与友好提示（解析 .log 文件中的 Error 行）
+- [x] 支持自定义 TeX 引擎路径
+- [x] 添加 `--watch` 模式（文件变化自动重编译）
 
 ### Task 3.2 — 完善 `scripts/clean.py`
-- [ ] 添加 `--dry-run` 模式（只列出将删除的文件，不实际删除）
-- [ ] 添加交互式确认（`--interactive`）
+- [x] 添加 `--dry-run` 模式（只列出将删除的文件，不实际删除）
+- [x] 添加交互式确认（`--interactive`）
 
 ### Task 3.3 — 创建 `scripts/new_contest.py`
-- [ ] 一键脚手架工具：`python scripts/new_contest.py --name <name> --lang zh/en`
-- [ ] 自动创建模板目录、section 文件、main.tex
-- [ ] 自动注册到 TARGETS 配置
+- [x] 一键脚手架工具：`python scripts/new_contest.py --name <name> --lang zh/en`
+- [x] 自动创建模板目录、section 文件、main.tex
+- [x] 自动注册到 TARGETS 配置
 
 ---
 
