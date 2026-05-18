@@ -4,15 +4,34 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{paperkit-utils}[2026/05/18 v1.0 ModelingPaperKit Utilities]
 
+\makeatletter
+\newif\ifpkuLangZh
+\newif\ifpkuLangSet
+\DeclareOption{zh}{\pkuLangZhtrue\pkuLangSettrue}
+\DeclareOption{en}{\pkuLangZhfalse\pkuLangSettrue}
+\DeclareOption{auto}{}
+\ExecuteOptions{auto}
+\ProcessOptions\relax
+\ifpkuLangSet\else
+  \@ifpackageloaded{ctex}{\pkuLangZhtrue}{\pkuLangZhfalse}%
+\fi
+\makeatother
+
 % ── 算法伪代码 ──
 \RequirePackage{algorithm}
 \RequirePackage{algorithmicx}
 \RequirePackage{algpseudocode}
 
-\floatname{algorithm}{算法}
-\renewcommand{\listalgorithmname}{算法清单}
+\ifpkuLangZh
+  \floatname{algorithm}{算法}
+  \renewcommand{\listalgorithmname}{算法清单}
+\else
+  \floatname{algorithm}{Algorithm}
+  \renewcommand{\listalgorithmname}{List of Algorithms}
+\fi
 
 % 中文 algorithmic 汉化（补齐 algpseudocode 常用关键字）
+\ifpkuLangZh
 \algrenewcommand\algorithmicrequire{\textbf{输入：}}
 \algrenewcommand\algorithmicensure{\textbf{输出：}}
 \algrenewcommand\algorithmicwhile{\textbf{当}}
@@ -31,6 +50,25 @@
 \algrenewcommand\algorithmicuntil{\textbf{直到}}
 % TODO(director): algorithmicstate/and/or/not/print 在 algpseudocode 中无对应命令，是否自定义？
 \algrenewcommand\algorithmiccomment[1]{\hfill\textit{// ##1}}
+\else
+\algrenewcommand\algorithmicrequire{\textbf{Require:}}
+\algrenewcommand\algorithmicensure{\textbf{Ensure:}}
+\algrenewcommand\algorithmicwhile{\textbf{while}}
+\algrenewcommand\algorithmicdo{\textbf{do}}
+\algrenewcommand\algorithmicend{\textbf{end}}
+\algrenewcommand\algorithmicif{\textbf{if}}
+\algrenewcommand\algorithmicthen{\textbf{then}}
+\algrenewcommand\algorithmicelse{\textbf{else}}
+\algrenewcommand\algorithmicfor{\textbf{for}}
+\algrenewcommand\algorithmicforall{\textbf{for all}}
+\algrenewcommand\algorithmicloop{\textbf{loop}}
+\algrenewcommand\algorithmicfunction{\textbf{function}}
+\algrenewcommand\algorithmicprocedure{\textbf{procedure}}
+\algrenewcommand\algorithmicreturn{\textbf{return}}
+\algrenewcommand\algorithmicrepeat{\textbf{repeat}}
+\algrenewcommand\algorithmicuntil{\textbf{until}}
+\algrenewcommand\algorithmiccomment[1]{\hfill\textit{// ##1}}
+\fi
 
 % ── tcolorbox 代码块 ──
 \RequirePackage[most]{tcolorbox}
@@ -43,9 +81,14 @@
 \newcommand{\todo}[1]{%
   \par\noindent{\color{orange}\textbf{[TODO]}}~#1\par
 }
-\newcommand{\draft}[1]{%
-  \par\noindent{\color{red!70!black}\textbf{[草稿]}}~#1\par
+\providecommand{\draft}[1]{%
+  \par\noindent{\color{red!70!black}\textbf{[DRAFT]}}~#1\par
 }
+\ifpkuLangZh
+  \renewcommand{\draft}[1]{%
+    \par\noindent{\color{red!70!black}\textbf{[草稿]}}~#1\par
+  }
+\fi
 
 % ── 脱敏占位（编译期自动替换） ──
 \newcommand{\email}[1]{[已脱敏]}

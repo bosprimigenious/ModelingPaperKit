@@ -1,47 +1,48 @@
 % ============================================================
-%  MCM/ICM Summary Sheet
-%  美赛官方要求的第一页摘要页
+%  MCM/ICM Summary Sheet (first page)
+%  % TODO(director): 对照当年 COMAP Summary Sheet PDF 微调边距与字号
 % ============================================================
 \thispagestyle{empty}
 
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+  \fbox{%
+    \parbox[t][1.35cm][c]{\dimexpr0.48\textwidth-2\fboxsep-2\fboxrule\relax}{%
+      \centering\bfseries\large Team Control Number\\[0.35em]
+      {\LARGE \MCMControlNumber}%
+    }%
+  }
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+  \fbox{%
+    \parbox[t][1.35cm][c]{\dimexpr0.48\textwidth-2\fboxsep-2\fboxrule\relax}{%
+      \centering\bfseries\large Problem Chosen\\[0.35em]
+      {\LARGE \MCMProblemChoice}%
+    }%
+  }
+\end{minipage}
+
+\vspace{0.65em}
 \begin{center}
-  {\large\bfseries Summary Sheet}
+  {\large\bfseries Summary Sheet}\\[0.35em]
+  {\bfseries\MCMTitle}
 \end{center}
 
-\vspace{0.5em}
+\vspace{0.45em}
+\hrule height 0.6pt
+\vspace{0.75em}
 
-\noindent
-\textbf{Team Control Number:} \MCMControlNumber
-\hfill
-\textbf{Problem Chosen:} \MCMProblemChoice
-
-\vspace{0.3em}
-\hrule
-\vspace{0.8em}
-
-% ── Summary 正文 ──
-% 美赛摘要建议结构：
-% 1. 问题背景与重述 (1-2 句)
-% 2. 建模方法与技术路线 (核心，占摘要大部分)
-% 3. 关键结果 (用数字说明)
-% 4. 结论 (1 句)
-
-Write your summary here. The summary should be a concise, self-contained
-description of your approach and key findings. It should include:
-
-\begin{itemize}
-  \item Brief problem context and restatement.
-  \item Description of your modeling approach and techniques used.
-  \item Your most important quantitative results.
-  \item A concluding statement about the significance of your work.
+Write your summary here (one page maximum). Suggested structure:
+\begin{itemize}[nosep,leftmargin=*]
+  \item Problem context and restatement (1--2 sentences).
+  \item Modeling approach and key techniques.
+  \item Quantitative results with numbers.
+  \item Concluding statement.
 \end{itemize}
 
-\textbf{Note:} The Summary Sheet must NOT exceed one page. Do NOT include
-any identifying information (school names, member names, advisor names).
-
 \vspace{0.5em}
-\noindent
-\textbf{Keywords:} keyword1; keyword2; keyword3; keyword4; keyword5
+\noindent\textbf{Keywords:} keyword1; keyword2; keyword3; keyword4; keyword5
 
 \vfill
+{\footnotesize Do not include school names, member names, or advisor names on this page.}
 \clearpage

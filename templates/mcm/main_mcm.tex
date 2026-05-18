@@ -5,10 +5,10 @@
 % ============================================================
 \documentclass[12pt,a4paper]{article}
 
-% ── 核心引擎 ──
+% ── 核心引擎（英文模式） ──
 \usepackage{../../core/paperkit-base}
 \usepackage[en]{../../core/paperkit-math}
-\usepackage{../../core/paperkit-utils}
+\usepackage[en]{../../core/paperkit-utils}
 
 % ── 英文字体 ──
 \setmainfont{Times New Roman}
@@ -33,127 +33,35 @@
 \titlespacing*{\section}{0pt}{0.8em}{0.5em}
 \titlespacing*{\subsection}{0pt}{0.6em}{0.3em}
 
-% paperkit-math 已通过 lang=auto 加载英文定理环境
-
 % ── 插图搜索路径 ──
 \graphicspath{{../02_figures/}{./figures/}}
 
 % ── 元信息 (在此填写) ──
-\newcommand{\MCMControlNumber}{[Your Control Number]}
-\newcommand{\MCMProblemChoice}{[A/B/C/D/E/F]}
-\newcommand{\MCMTitle}{[Your Paper Title Here]}
+\newcommand{\MCMControlNumber}{0000000}
+\newcommand{\MCMProblemChoice}{C}
+\newcommand{\MCMTitle}{Your Paper Title Here}
 
 \begin{document}
 
-% ============================================================
-% Summary Sheet (美赛特有，必须作为第一页)
-% ============================================================
 \input{sections/summary_sheet}
 
-\clearpage
-
-% ============================================================
-% Table of Contents (美赛建议保留目录)
-% ============================================================
 \tableofcontents
 \clearpage
 
-% ============================================================
-% 正文
-% ============================================================
+\input{sections/introduction}
+\input{sections/assumptions}
+\input{sections/notation}
+\input{sections/models}
+\input{sections/results}
+\input{sections/sensitivity}
+\input{sections/validation}
+\input{sections/strengths}
+\input{sections/conclusion}
 
-\section{Introduction}
+\input{sections/references}
 
-\subsection{Problem Background}
-Briefly introduce the context and motivation of the problem.
-
-\subsection{Restatement of the Problem}
-Restate the problem in your own words. Break it into specific tasks:
-
-\begin{enumerate}[label=Task \arabic*:,leftmargin=*]
-  \item Describe the first task.
-  \item Describe the second task.
-  \item Describe the third task.
-\end{enumerate}
-
-\subsection{Our Work}
-Summarize your overall approach and contributions in one or two paragraphs.
-
-% ──────────────────────────────────────
-\section{Assumptions and Justifications}
-
-\begin{enumerate}[label=\textbf{A\arabic*},leftmargin=*]
-  \item \textbf{Assumption 1:} Description and justification.
-  \item \textbf{Assumption 2:} Description and justification.
-  \item \textbf{Assumption 3:} Description and justification.
-\end{enumerate}
-
-% ──────────────────────────────────────
-\section{Notation}
-% 符号表
-
-\begin{center}
-\begin{tabular}{c|c|c}
-  \toprule
-  \textbf{Symbol} & \textbf{Definition} & \textbf{Unit} \\
-  \midrule
-  $x_i$    & Description & — \\
-  $y$      & Description & — \\
-  \bottomrule
-\end{tabular}
-\end{center}
-
-% ──────────────────────────────────────
-\section{Models}
-
-\subsection{Model for Task 1}
-\subsubsection{Modeling Approach}
-\subsubsection{Mathematical Formulation}
-% Figure placeholder (drop image into figures/ or ../02_figures/)
-\figplot{Workflow overview}{4.5cm}{fig:workflow-demo}{%
-  Place fig\_workflow\_demo.png in the figures/ directory}{fig_workflow_demo.png}{}
-\subsubsection{Solution Algorithm}
-
-\subsection{Model for Task 2}
-\subsubsection{Modeling Approach}
-\subsubsection{Mathematical Formulation}
-\subsubsection{Solution Algorithm}
-
-% ──────────────────────────────────────
-\section{Results and Analysis}
-
-\subsection{Results for Task 1}
-\subsection{Results for Task 2}
-
-% ──────────────────────────────────────
-\section{Sensitivity Analysis}
-
-% ──────────────────────────────────────
-\section{Model Validation}
-
-% ──────────────────────────────────────
-\section{Strengths and Weaknesses}
-
-\subsection{Strengths}
-\subsection{Weaknesses}
-\subsection{Future Work}
-
-% ──────────────────────────────────────
-\section{Conclusion}
-
-% ──────────────────────────────────────
-\begin{thebibliography}{99}
-
-\bibitem{ref1}
-Author.
-\emph{Title} [J].
-Journal, Year, Volume(Issue): Pages.
-
-\end{thebibliography}
-
-% ──────────────────────────────────────
 \clearpage
 \appendix
-\section{Code Listing}
+\input{sections/appendix}
 
 \end{document}
