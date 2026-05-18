@@ -1,0 +1,39 @@
+% ============================================================
+%  二、模型建立
+% ============================================================
+\section{模型建立}
+
+\subsection{符号与假设}
+
+\begin{definition}[特征向量]\label{def:feature}
+记样本特征 $\vb{x}=(x_1,x_2)^\top\in\R^2$，目标 $y\in\R$，设计矩阵
+$\mat{X}\in\R^{n\times p}$，参数 $\vb{\beta}\in\R^p$。
+\end{definition}
+
+\begin{assumption}[线性可加噪声]
+观测满足 $y_i=\vb{x}_i^\top\vb{\beta}+\varepsilon_i$，且
+$\varepsilon_i\sim\mathcal{N}(0,\sigma^2)$ 独立同分布。
+\end{assumption}
+
+\subsection{回归模型}
+
+最小二乘目标为
+\begin{equation}\label{eq:ols}
+  \min_{\vb{\beta}}\ \|\mat{X}\vb{\beta}-\vb{y}\|_2^2 .
+\end{equation}
+
+\begin{theorem}[正规方程]\label{thm:main}
+若 $\mat{X}^\top\mat{X}$ 可逆，则 \eqref{eq:ols} 的解为
+$\hat{\vb{\beta}}=(\mat{X}^\top\mat{X})^{-1}\mat{X}^\top\vb{y}$。
+\end{theorem}
+
+\begin{lemma}[数值稳定性]\label{lem:stable}
+对中心化后的特征，条件数 $\kappa(\mat{X}^\top\mat{X})$ 显著下降，有利于求解稳定\upcite{smith2024synthetic}。
+\end{lemma}
+
+整体流程见 \cref{fig:workflow}；\cref{fig:timeseries} 与 \cref{fig:classification} 共同支撑结果分析
+（亦可用 \ref{fig:workflow}--\ref{fig:classification} 表示图号区间）。
+
+\figplot{建模流程示意}{3.6cm}{fig:workflow}{%
+  运行 generate\_figures.py 生成}{fig_workflow.pdf}{%
+  节点对应数据预处理、特征构建、训练与验证。}

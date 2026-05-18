@@ -1,0 +1,26 @@
+% ============================================================
+%  四、算法设计
+% ============================================================
+\section{算法设计}
+
+采用梯度下降求解 \eqref{eq:ols}，流程见算法~\cref{alg:gd}。
+
+\begin{algorithm}[H]
+  \caption{批量梯度下降（示例）}\label{alg:gd}
+  \begin{algorithmic}[1]
+    \Require 设计矩阵 $\mat{X}$，观测 $\vb{y}$，学习率 $\eta$，迭代上限 $T$
+    \Ensure 参数估计 $\hat{\vb{\beta}}$
+    \State 初始化 $\vb{\beta}\gets \vb{0}$
+    \For{$t=1$ \textbf{到} $T$}
+      \State $\vb{g}\gets \mat{X}^\top(\mat{X}\vb{\beta}-\vb{y})$
+      \State $\vb{\beta}\gets \vb{\beta}-\eta\vb{g}$
+    \EndFor
+    \State \Return $\vb{\beta}$
+  \end{algorithmic}
+\end{algorithm}
+
+算法~\cref{alg:gd} 与定理~\cref{thm:main} 配合，可复现表~\cref{tab:reg-sample} 所示回归拟合\upcite{zhang2023guide}。
+
+\begin{remark}[实现提示]
+生产环境建议改用正规方程或 \texttt{QR} 分解；本示例仅演示 \texttt{algorithm} 环境汉化。
+\end{remark}

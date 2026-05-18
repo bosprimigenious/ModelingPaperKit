@@ -1,0 +1,74 @@
+% ============================================================
+%  三、求解与结果
+% ============================================================
+\section{求解与结果}
+
+\subsection{时间序列分析}
+
+图~\cref{fig:timeseries} 展示合成周度指标；亦可直接用 \texttt{pgfplots} 读取 CSV：
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.88\textwidth,
+      height=5.2cm,
+      xlabel={周次序号},
+      ylabel={指标值},
+      grid=major,
+      legend pos=north west,
+      font=\small,
+    ]
+      \addplot[blue, thick] table[
+        x expr=\coordindex,
+        y=value,
+        col sep=comma,
+      ] {../dummy_data/time_series.csv};
+      \addlegendentry{观测值}
+      \addplot[gray, dashed] table[
+        x expr=\coordindex,
+        y=trend,
+        col sep=comma,
+      ] {../dummy_data/time_series.csv};
+      \addlegendentry{趋势项}
+    \end{axis}
+  \end{tikzpicture}
+  \caption{由 CSV 直接绘制的时序曲线（与 \cref{fig:timeseries} 数据源一致）}
+  \label{fig:ts-pgf}
+\end{figure}
+
+\figplot{合成时间序列曲线}{5.8cm}{fig:timeseries}{%
+  Matplotlib 自 CSV 导出}{fig_timeseries.pdf}{%
+  数据文件：\texttt{time\_series.csv}。}
+
+\subsection{分类结果}
+
+\figplot{二维分类散点图}{6.2cm}{fig:classification}{%
+  类别 0/1 散点对比}{fig_classification.pdf}{%
+  数据文件：\texttt{classification.csv}。}
+
+\subsection{回归样本表}
+
+表~\cref{tab:reg-sample} 自 CSV 导入前 6 行；完整数据见 \texttt{regression.csv}。
+
+\begin{table}[H]
+  \centering
+  \caption{回归数据片段（csvsimple 导入）}\label{tab:reg-sample}
+  \begin{tabular}{rrrr}
+    \topline
+    feature & strength & noise & target \\
+    \midline
+    \csvreader[
+      head to column names,
+      filter=\ifnum\csvinputline<7,
+      late after line=\\,
+    ]{../dummy_data/regression.csv}{%
+      \feature=\feature, \strength=\strength, \noise=\noise, \target=\target
+    }{%
+      \feature & \strength & \noise & \target
+    }\\
+    \bottomline
+  \end{tabular}
+\end{table}
+
+对比 \cref{fig:ts-pgf}、\cref{fig:timeseries} 与表~\cref{tab:reg-sample} 可见图文混排与智能引用效果。
