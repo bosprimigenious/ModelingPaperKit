@@ -60,4 +60,6 @@ temp/
 *.claude
 CLAUDE.md
 CLAUDE_TASKS.md
+CURSOR_TASKS.md
 .cursorrules
+scripts/task_runner.py
