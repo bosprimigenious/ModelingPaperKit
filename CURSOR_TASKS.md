@@ -72,42 +72,42 @@
 ## Phase 4: 示例与脱敏数据
 
 ### Task 4.1 — 创建 dummy 数据集
-- [ ] 在 `examples/dummy_data/` 创建合成的 CSV 数据文件
-- [ ] 数据包含典型的建模场景（时间序列、回归、分类）
-- [ ] 添加数据说明 README
+- [x] 在 `examples/dummy_data/` 创建合成的 CSV 数据文件
+- [x] 数据包含典型的建模场景（时间序列、回归、分类）
+- [x] 添加数据说明 README
 
 ### Task 4.2 — 创建完整示例论文
-- [ ] 在 `examples/` 下创建一个完整可编译的示例（如一个简化的国赛论文）
-- [ ] 使用 dummy 数据，包含完整的建模流程
-- [ ] 展示 paperkit 的主要功能（表格、图片、算法、代码块）
+- [x] 在 `examples/` 下创建一个完整可编译的示例（如一个简化的国赛论文）
+- [x] 使用 dummy 数据，包含完整的建模流程
+- [x] 展示 paperkit 的主要功能（表格、图片、算法、代码块）
 
 ---
 
 ## Phase 5: 文档
 
 ### Task 5.1 — 撰写使用文档
-- [ ] 在 `docs/` 创建 `getting-started.md`（中英文双语）
-- [ ] 创建 `template-guide.md` 说明每个 section 的写作要点
-- [ ] 创建 `faq.md` 常见问题（字体缺失、编译报错等）
+- [x] 在 `docs/` 创建 `getting-started.md`（中英文双语）
+- [x] 创建 `template-guide.md` 说明每个 section 的写作要点
+- [x] 创建 `faq.md` 常见问题（字体缺失、编译报错等）
 
 ### Task 5.2 — 撰写 LaTeX 类/包文档
-- [ ] 为 `paperkit-base.sty` 的所有命令写文档注释
-- [ ] 为 `paperkit-math.sty` 的定理环境写使用说明
-- [ ] 为 `paperkit-utils.sty` 的算法环境写使用说明
+- [x] 为 `paperkit-base.sty` 的所有命令写文档注释
+- [x] 为 `paperkit-math.sty` 的定理环境写使用说明
+- [x] 为 `paperkit-utils.sty` 的算法环境写使用说明
 
 ---
 
 ## Phase 6: 质量保证
 
 ### Task 6.1 — 编译验证
-- [ ] 确保 `python scripts/build.py --target all` 三项全部通过
-- [ ] 检查所有 PDF 输出无 Overfull/Underfull 警告
-- [ ] 验证交叉引用（\ref, \cite）在所有模板中正确解析
+- [x] 确保 `python scripts/build.py --target all` 三项全部通过
+- [x] 检查所有 PDF 输出无 Overfull/Underfull 警告
+- [x] 验证交叉引用（\ref, \cite）在所有模板中正确解析
 
 ### Task 6.2 — 脱敏审计
-- [ ] `grep -r` 搜索所有文件中是否残留真实姓名、学号、电话、邮箱、学校名
-- [ ] 特别注意承诺书/cover 文件中不应用出现任何可识别个人身份的信息
-- [ ] 确保无 .env 或 credentials 文件被提交
+- [x] `grep -r` 搜索所有文件中是否残留真实姓名、学号、电话、邮箱、学校名
+- [x] 特别注意承诺书/cover 文件中不应用出现任何可识别个人身份的信息
+- [x] 确保无 .env 或 credentials 文件被提交
 
 ---
 
