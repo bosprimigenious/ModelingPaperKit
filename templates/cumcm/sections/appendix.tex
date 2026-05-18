@@ -4,10 +4,20 @@
 
 \section{主要代码清单}
 
-% 在此列出核心算法或关键代码片段。
-% 建议使用 listings 环境的 \lstinputlisting 引用外部代码文件。
-% 示例：
-% \lstinputlisting[language=Python, caption={核心算法实现}]{./code/main.py}
+% 推荐使用 \lstinputlisting 引用外部代码文件（便于版本管理）：
+% \lstinputlisting[language=Python, caption={数据预处理脚本}]{./code/preprocess.py}
+
+% 内联代码示例：
+\begin{lstlisting}[language=Python, caption={示例：读取数据并计算均值}]
+import pandas as pd
+
+def load_data(path: str) -> pd.DataFrame:
+    return pd.read_csv(path)
+
+if __name__ == "__main__":
+    df = load_data("../examples/dummy_data/sample_series.csv")
+    print(df["value"].mean())
+\end{lstlisting}
 
 注：完整的代码文件应在提交时一并打包。
 

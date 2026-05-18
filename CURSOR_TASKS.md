@@ -28,20 +28,20 @@
 ## Phase 2: 模板完善
 
 ### Task 2.1 — CUMCM 模板 (国赛/高教杯)
-- [ ] 检查 `main_cumcm.tex` 中所有 section 引用与实际 section 文件名一致
-- [ ] 完善 `sections/problem.tex` — 添加国赛典型的问题重述结构指导
-- [ ] 完善 `sections/model.tex` — 添加流程图插入示例
-- [ ] 完善 `sections/appendix.tex` — 添加代码清单示例
-- [ ] 确认承诺书 `cover.tex` 格式与最新国赛官方要求一致
-- [ ] 添加 `\maketitle` 替代方案（不使用 ctexart 默认标题页）
+- [x] 检查 `main_cumcm.tex` 中所有 section 引用与实际 section 文件名一致
+- [x] 完善 `sections/problem.tex` — 添加国赛典型的问题重述结构指导
+- [x] 完善 `sections/model.tex` — 添加流程图插入示例
+- [x] 完善 `sections/appendix.tex` — 添加代码清单示例
+- [x] 确认承诺书 `cover.tex` 格式与最新国赛官方要求一致
+- [x] 添加 `\maketitle` 替代方案（不使用 ctexart 默认标题页）
 
 ### Task 2.2 — MCM 模板 (美赛)
-- [ ] 完善 `summary_sheet.tex` — 复刻美赛官方 Summary Sheet 精确布局
-- [ ] 添加 Control Number 和 Problem Choice 的醒目占位
-- [ ] 确保 MCM 模板不使用任何中文命令/宏
-- [ ] 添加 MCM 典型的 Introduction/Assumptions/Model/Results/Conclusion 章节文件
-- [ ] 创建独立的 `sections/` 子文件（不要把所有内容塞在 main_mcm.tex 里）
-- [ ] 添加 Table of Contents 支持
+- [x] 完善 `summary_sheet.tex` — 复刻美赛官方 Summary Sheet 精确布局
+- [x] 添加 Control Number 和 Problem Choice 的醒目占位
+- [x] 确保 MCM 模板不使用任何中文命令/宏
+- [x] 添加 MCM 典型的 Introduction/Assumptions/Model/Results/Conclusion 章节文件
+- [x] 创建独立的 `sections/` 子文件（不要把所有内容塞在 main_mcm.tex 里）
+- [x] 添加 Table of Contents 支持
 
 ### Task 2.3 — Wuyi 模板 (五一杯)
 - [ ] 确认五一杯承诺书格式与 2026 年官方模板一致
