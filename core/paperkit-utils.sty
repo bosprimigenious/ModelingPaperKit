@@ -12,7 +12,7 @@
 \floatname{algorithm}{算法}
 \renewcommand{\listalgorithmname}{算法清单}
 
-% 中文 algorithmic 汉化
+% 中文 algorithmic 汉化（补齐 algpseudocode 常用关键字）
 \algrenewcommand\algorithmicrequire{\textbf{输入：}}
 \algrenewcommand\algorithmicensure{\textbf{输出：}}
 \algrenewcommand\algorithmicwhile{\textbf{当}}
@@ -23,14 +23,33 @@
 \algrenewcommand\algorithmicelse{\textbf{否则}}
 \algrenewcommand\algorithmicfor{\textbf{遍历}}
 \algrenewcommand\algorithmicforall{\textbf{对所有}}
+\algrenewcommand\algorithmicloop{\textbf{循环}}
 \algrenewcommand\algorithmicfunction{\textbf{函数}}
+\algrenewcommand\algorithmicprocedure{\textbf{过程}}
 \algrenewcommand\algorithmicreturn{\textbf{返回}}
 \algrenewcommand\algorithmicrepeat{\textbf{重复}}
 \algrenewcommand\algorithmicuntil{\textbf{直到}}
+% TODO(director): algorithmicstate/and/or/not/print 在 algpseudocode 中无对应命令，是否自定义？
+\algrenewcommand\algorithmiccomment[1]{\hfill\textit{// ##1}}
 
 % ── tcolorbox 代码块 ──
 \RequirePackage[most]{tcolorbox}
 \tcbuselibrary{listings,breakable}
+
+% ── 写作过程标记 ──
+\RequirePackage{xcolor}
+\definecolor{pkb@todobg}{RGB}{255, 244, 204}
+\definecolor{pkb@draftbg}{RGB}{255, 230, 230}
+\newcommand{\todo}[1]{%
+  \par\noindent{\color{orange}\textbf{[TODO]}}~#1\par
+}
+\newcommand{\draft}[1]{%
+  \par\noindent{\color{red!70!black}\textbf{[草稿]}}~#1\par
+}
+
+% ── 脱敏占位（编译期自动替换） ──
+\newcommand{\email}[1]{[已脱敏]}
+\newcommand{\phone}[1]{[已脱敏]}
 
 % ── 上标引用 ──
 \newcommand{\upcite}[1]{$^{\mbox{\scriptsize \cite{#1}}}$}

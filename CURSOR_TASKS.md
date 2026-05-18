@@ -19,9 +19,9 @@
 - [x] 确保定理环境同时支持中英文（通过语言选项）
 
 ### Task 1.3 — 增强 `core/paperkit-utils.sty`
-- [ ] 添加 `\todo` 和 `\draft` 标记宏（用于写作过程）
-- [ ] 完善 pseudo-code 汉化（补齐所有 `\algrenewcommand`）
-- [ ] 添加 `\email`, `\phone` 占位符命令（编译时自动替换为 `[已脱敏]`）
+- [x] 添加 `\todo` 和 `\draft` 标记宏（用于写作过程）
+- [x] 完善 pseudo-code 汉化（补齐所有 `\algrenewcommand`）
+- [x] 添加 `\email`, `\phone` 占位符命令（编译时自动替换为 `[已脱敏]`）
 
 ---
 
