@@ -58,6 +58,7 @@ temp/
 # ── Claude / Cursor 本地协作（不纳入版本库） ──
 .claude/
 *.claude
+CLAUDE.md
 CLAUDE_TASKS.md
 CURSOR_TASKS.md
 .cursorrules
