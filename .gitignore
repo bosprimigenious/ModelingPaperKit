@@ -49,6 +49,8 @@ secrets*.json
 build/
 dist/
 out/
+!templates/*/out/*.pdf
+!examples/*/out/*.pdf
 
 # ── Temp / logs ──
 *.tmp
