@@ -103,6 +103,7 @@
 - [x] 确保 `python scripts/build.py --target all` 三项全部通过
 - [x] 检查所有 PDF 输出无 Overfull/Underfull 警告
 - [x] 验证交叉引用（\ref, \cite）在所有模板中正确解析
+- 复检命令：`python scripts/verify_build.py`（清理后全量编译 + 日志/PDF 检查）
 
 ### Task 6.2 — 脱敏审计
 - [x] `grep -r` 搜索所有文件中是否残留真实姓名、学号、电话、邮箱、学校名
