@@ -18,60 +18,100 @@ AUX_PATTERNS = [
 PYCACHE_PATTERNS = ["__pycache__", "*.pyc", "*.pyo"]
 
 
-def clean_aux_files(root: Path) -> int:
-    """递归删除 LaTeX 辅助文件，返回删除数."""
-    count = 0
+def iter_aux_files(root: Path) -> list[Path]:
+    files: list[Path] = []
     for pattern in AUX_PATTERNS:
-        for f in root.rglob(pattern):
-            f.unlink()
-            count += 1
-    return count
+        files.extend(root.rglob(pattern))
+    return files
 
 
-def clean_pycache(root: Path) -> int:
-    """递归删除 Python 缓存，返回删除数."""
-    count = 0
+def iter_pycache(root: Path) -> list[Path]:
+    items: list[Path] = []
     for pattern in PYCACHE_PATTERNS:
-        for item in root.rglob(pattern):
-            if item.is_dir():
-                shutil.rmtree(item)
-            else:
-                item.unlink()
-            count += 1
-    return count
+        items.extend(root.rglob(pattern))
+    return items
 
 
-def clean_out_dirs(root: Path) -> int:
-    """删除所有 out/ 输出目录，返回删除数."""
+def iter_out_dirs(root: Path) -> list[Path]:
+    return [
+        out_dir
+        for out_dir in root.rglob("out")
+        if out_dir.is_dir() and ".git" not in out_dir.parts
+    ]
+
+
+def delete_paths(paths: list[Path], dry_run: bool) -> int:
     count = 0
-    for out_dir in root.rglob("out"):
-        if out_dir.is_dir() and ".git" not in out_dir.parts:
-            shutil.rmtree(out_dir)
+    for path in paths:
+        if dry_run:
+            print(f"[DRY-RUN] 将删除: {path.relative_to(REPO_ROOT)}")
             count += 1
+            continue
+        if path.is_dir():
+            shutil.rmtree(path)
+        elif path.exists():
+            path.unlink()
+        count += 1
     return count
+
+
+def confirm(prompt: str) -> bool:
+    try:
+        answer = input(f"{prompt} [y/N]: ").strip().lower()
+    except EOFError:
+        return False
+    return answer in {"y", "yes"}
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="清理编译缓存与输出")
-    parser.add_argument("--all", action="store_true", default=True,
-                       help="清理所有 (默认)")
-    parser.add_argument("--aux-only", action="store_true",
-                       help="仅清理 LaTeX 辅助文件")
-    parser.add_argument("--output-only", action="store_true",
-                       help="仅清理输出目录")
+    parser.add_argument(
+        "--all",
+        action="store_true",
+        default=True,
+        help="清理所有 (默认)",
+    )
+    parser.add_argument("--aux-only", action="store_true", help="仅清理 LaTeX 辅助文件")
+    parser.add_argument("--output-only", action="store_true", help="仅清理输出目录")
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="仅列出将删除的文件，不实际删除",
+    )
+    parser.add_argument(
+        "--interactive",
+        action="store_true",
+        help="删除前交互式确认",
+    )
     args = parser.parse_args()
 
     if args.aux_only:
-        n = clean_aux_files(REPO_ROOT)
-        print(f"[CLEAN] 删除 {n} 个 LaTeX 辅助文件")
+        targets = iter_aux_files(REPO_ROOT)
+        label = "LaTeX 辅助文件"
     elif args.output_only:
-        n = clean_out_dirs(REPO_ROOT)
-        print(f"[CLEAN] 删除 {n} 个输出目录")
+        targets = iter_out_dirs(REPO_ROOT)
+        label = "输出目录"
     else:
-        n1 = clean_aux_files(REPO_ROOT)
-        n2 = clean_pycache(REPO_ROOT)
-        n3 = clean_out_dirs(REPO_ROOT)
-        print(f"[CLEAN] 删除 {n1} 个辅助文件, {n2} 个缓存, {n3} 个输出目录")
+        targets = (
+            iter_aux_files(REPO_ROOT)
+            + iter_pycache(REPO_ROOT)
+            + iter_out_dirs(REPO_ROOT)
+        )
+        label = "缓存与输出"
+
+    if not targets:
+        print("[CLEAN] 无需清理")
+        return
+
+    if args.interactive and not args.dry_run:
+        print(f"[CLEAN] 将删除 {len(targets)} 个{label}项")
+        if not confirm("确认继续"):
+            print("[CLEAN] 已取消")
+            return
+
+    n = delete_paths(targets, dry_run=args.dry_run)
+    mode = "将删除" if args.dry_run else "已删除"
+    print(f"[CLEAN] {mode} {n} 个{label}项")
 
 
 if __name__ == "__main__":
