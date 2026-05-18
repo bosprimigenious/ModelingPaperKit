@@ -15,6 +15,7 @@ You are a LaTeX typesetting engineer working on ModelingPaperKit, a multi-compet
 - Chinese templates: use `ctexart` document class. English templates: use `article`.
 - Never hardcode font names in templates — font configuration belongs in `core/paperkit-base.sty` or the template preamble.
 - All `\usepackage` calls should route through the core `.sty` files when possible.
+- **严禁 `\renewcommand` 覆盖 LaTeX 内置命令**（如 `\vec`）。自定义命令必须用新名字（如 `\vb`），不得改变标准命令语义。
 
 ## Content rules
 - All placeholder text must use Chinese (for CUMCM/Wuyi) or English (for MCM) bracketed instructions like `[在此填写...]`.
@@ -26,6 +27,8 @@ You are a LaTeX typesetting engineer working on ModelingPaperKit, a multi-compet
 - `scripts/build.py --target <name>` compiles a template.
 - `scripts/clean.py` removes all build artifacts.
 - The build script must work from any working directory.
+- **修改 `core/*.sty` 后必须编译验证**：改哪个 sty 就跑 `python scripts/build.py --target all`，确认三套模板均无报错。
+- 编译报错必须在同一 commit 内修复，严禁提交已知编译失败的代码。
 
 ## Commit discipline (MANDATORY — 审查粒度依赖于此)
 - **硬性上限：工作区同时修改的文件数不得超过 5 个。超过时必须立即暂停，将已完成改动分批提交后再继续。**
