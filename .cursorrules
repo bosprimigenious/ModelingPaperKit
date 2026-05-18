@@ -1,0 +1,37 @@
+# ModelingPaperKit Cursor Rules
+
+## Role
+You are a LaTeX typesetting engineer working on ModelingPaperKit, a multi-competition math modeling paper toolkit. Your job is to maintain the core engine and competition templates with surgical precision.
+
+## Architecture constraint: Core + Plugins
+- `core/` contains the shared typesetting engine. Changes here affect ALL templates.
+- `templates/<contest>/` are independent competition plugins. They must NOT contain hardcoded personal information, school names, or team numbers.
+- NEVER duplicate code between templates. If two templates share a pattern, move it to `core/`.
+- Each template is self-contained: copy the template directory, fill in content, and compile.
+
+## LaTeX rules
+- Always use `xelatex` for compilation (required for Chinese font support).
+- Use `\geometry` from `paperkit-base.sty` — do NOT override margins in individual templates.
+- Chinese templates: use `ctexart` document class. English templates: use `article`.
+- Never hardcode font names in templates — font configuration belongs in `core/paperkit-base.sty` or the template preamble.
+- All `\usepackage` calls should route through the core `.sty` files when possible.
+
+## Content rules
+- All placeholder text must use Chinese (for CUMCM/Wuyi) or English (for MCM) bracketed instructions like `[在此填写...]`.
+- Never include real names, student IDs, phone numbers, emails, or school names.
+- Reference papers must be generic examples (`\bibitem{ref1}` with placeholder text).
+- Dummy data must be synthetically generated — never include real competition datasets.
+
+## Build system
+- `scripts/build.py --target <name>` compiles a template.
+- `scripts/clean.py` removes all build artifacts.
+- The build script must work from any working directory.
+
+## Commit discipline (MANDATORY)
+- After completing each Task from CURSOR_TASKS.md, you MUST:
+  1. `git add` the specific files you changed (NOT `git add .` or `git add -A`)
+  2. `git commit` with a conventional commit message
+  3. Mark the task as `[x]` in CURSOR_TASKS.md and commit that too (or amend)
+- Commit messages in English. Format: `feat:`, `fix:`, `refactor:`, `docs:`, `chore:`
+- Never commit: .aux, .log, .out, .pdf, .synctex.gz, __pycache__, .env files
+- Never use --no-verify or --allow-empty

@@ -1,0 +1,54 @@
+% ============================================================
+%  paperkit-utils.sty — 算法伪代码、三线表、图表排版封装
+% ============================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{paperkit-utils}[2026/05/18 v1.0 ModelingPaperKit Utilities]
+
+% ── 算法伪代码 ──
+\RequirePackage{algorithm}
+\RequirePackage{algorithmicx}
+\RequirePackage{algpseudocode}
+
+\floatname{algorithm}{算法}
+\renewcommand{\listalgorithmname}{算法清单}
+
+% 中文 algorithmic 汉化
+\algrenewcommand\algorithmicrequire{\textbf{输入：}}
+\algrenewcommand\algorithmicensure{\textbf{输出：}}
+\algrenewcommand\algorithmicwhile{\textbf{当}}
+\algrenewcommand\algorithmicdo{\textbf{执行}}
+\algrenewcommand\algorithmicend{\textbf{结束}}
+\algrenewcommand\algorithmicif{\textbf{如果}}
+\algrenewcommand\algorithmicthen{\textbf{则}}
+\algrenewcommand\algorithmicelse{\textbf{否则}}
+\algrenewcommand\algorithmicfor{\textbf{遍历}}
+\algrenewcommand\algorithmicforall{\textbf{对所有}}
+\algrenewcommand\algorithmicfunction{\textbf{函数}}
+\algrenewcommand\algorithmicreturn{\textbf{返回}}
+\algrenewcommand\algorithmicrepeat{\textbf{重复}}
+\algrenewcommand\algorithmicuntil{\textbf{直到}}
+
+% ── tcolorbox 代码块 ──
+\RequirePackage[most]{tcolorbox}
+\tcbuselibrary{listings,breakable}
+
+% ── 上标引用 ──
+\newcommand{\upcite}[1]{$^{\mbox{\scriptsize \cite{#1}}}$}
+\newcommand{\supercite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
+
+% ── 实用宏 ──
+% 正文插图统一宽度
+\newcommand{\BodyFigWidth}{0.76\textwidth}
+% 流程类 PDF 最大高度
+\newcommand{\BodyPdfMaxHeight}{0.36\textheight}
+
+% ── hyperref（必须在所有宏包之后加载） ──
+\RequirePackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black
+}
+
+\endinput

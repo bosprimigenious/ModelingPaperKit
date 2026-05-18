@@ -1,0 +1,40 @@
+% ============================================================
+%  paperkit-math.sty — 数学公式与定理环境增强
+% ============================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{paperkit-math}[2026/05/18 v1.0 ModelingPaperKit Math]
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amsfonts}
+\RequirePackage{bm}
+
+% ── 公式编号：section.formula ──
+\numberwithin{equation}{section}
+
+% ── 定理环境 ──
+\RequirePackage{amsthm}
+\newtheorem{definition}{定义}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}{引理}[section]
+\newtheorem{corollary}{推论}[section]
+\newtheorem{assumption}{假设}[section]
+\newtheorem{conjecture}{猜想}[section]
+\newtheorem{axiom}{公理}[section]
+\newtheorem{principle}{定律}[section]
+\newtheorem{problem}{问题}[section]
+\newtheorem{example}{例}[section]
+\newtheorem{proof}{证明}[section]
+\newtheorem{solution}{解}[section]
+
+% ── 常用数学命令 ──
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\argmax}{\operatorname*{arg\,max}}
+
+\endinput

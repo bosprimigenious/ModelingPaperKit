@@ -1,0 +1,200 @@
+% ============================================================
+%  paperkit-base.sty — ModelingPaperKit 核心排版引擎
+%  页面、字体、边距、标题、图表、代码块等底层逻辑
+%  兼容 ctexart (中文赛事) 与 article (英文赛事)
+% ============================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{paperkit-base}[2026/05/18 v1.0 ModelingPaperKit Base Engine]
+
+% ── 基础宏包 ──
+\RequirePackage{xurl}
+\RequirePackage{geometry}
+\RequirePackage{setspace}
+\RequirePackage{graphicx}
+\RequirePackage{float}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage{enumitem}
+\RequirePackage{xcolor}
+\RequirePackage{titlesec}
+\RequirePackage{etoolbox}
+\RequirePackage{fontspec}
+
+\RequireXeTeX
+
+% ── 页面边距 ──
+\geometry{
+  a4paper,
+  left=3.17cm,
+  right=3.17cm,
+  top=2.54cm,
+  bottom=2.54cm,
+  headheight=0pt,
+  headsep=0pt,
+  footskip=1.25cm,
+  bindingoffset=0pt
+}
+
+% ── 正文字体与行距 (可由模板覆盖) ──
+\providecommand{\pkb@mainfont}{Times New Roman}
+\providecommand{\pkb@cjkmainfont}{SimSun}
+\providecommand{\pkb@cjkheifont}{SimHei}
+\providecommand{\pkb@cjkkaifont}{KaiTi}
+
+\makeatletter
+% ctexart 自行管理 CJK 字体；article 模板在 main 中设置 \setmainfont
+\@ifpackageloaded{ctex}{}{%
+  \setmainfont{\pkb@mainfont}%
+}
+\makeatother
+
+\raggedbottom
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\emergencystretch=3.5em\relax
+
+% ── 页眉页脚：无页眉，只保留页脚居中页码 ──
+\pagestyle{plain}
+\makeatletter
+\def\ps@plain{%
+  \let\@oddhead\@empty
+  \let\@evenhead\@empty
+  \def\@oddfoot{\hfil\pkb@printpage\hfil}%
+  \def\@evenfoot{\hfil\pkb@printpage\hfil}%
+}
+\newcommand{\pkb@printpage}{%
+  \ifcsname zihao\endcsname\zihao{-5}\else\small\fi\thepage%
+}
+\makeatother
+
+% ── caption 设置 ──
+\captionsetup{
+  font={small},
+  labelfont={bf},
+  labelsep=quad,
+  justification=centering,
+  skip=4pt
+}
+
+% ── 浮动体间距 ──
+\setlength{\textfloatsep}{10pt plus 3pt minus 3pt}
+\setlength{\floatsep}{10pt plus 3pt minus 3pt}
+\setlength{\intextsep}{8pt plus 3pt minus 3pt}
+
+% ── 列表 ──
+\setlist{
+  itemsep=0pt,
+  topsep=0.3em,
+  parsep=0pt,
+  partopsep=0pt
+}
+
+% ── 图表题注：仅中文模板汉化（ctex 已内置时可安全覆盖） ──
+\makeatletter
+\@ifpackageloaded{ctex}{%
+  \renewcommand{\tablename}{表}%
+  \renewcommand{\figurename}{图}%
+}{}
+\makeatother
+
+\AtBeginEnvironment{table}{\centering}
+
+% ── 插图占位字体（跨 ctexart / article；在正文中按宏是否存在选择） ──
+\newcommand{\pkb@figtitlewrap}[1]{%
+  {\ifcsname heiti\endcsname\heiti\else\bfseries\fi ##1}%
+}
+\newcommand{\pkb@fignotewrap}[1]{%
+  {\ifcsname zihao\endcsname\zihao{5}\else\small\fi ##1}%
+}
+\newcommand{\pkb@fignotelabel}{%
+  \ifcsname heiti\endcsname 制图说明：\else Figure note:\fi
+}
+
+% ── 图片占位 / 自动插图宏 ──
+% \figplot{题注}{占位高度}{label}{占位说明}{文件名}{制图说明(可空)}
+\newcommand{\pkb@includefig}[1]{%
+  \includegraphics[width=0.845\textwidth]{##1}%
+}
+\newcommand{\figplot}[6]{%
+  \begin{figure}[H]
+    \centering
+    \IfFileExists{##5}{%
+      \pkb@includefig{##5}%
+    }{%
+      \IfFileExists{./figures/##5}{%
+        \pkb@includefig{./figures/##5}%
+      }{%
+        \IfFileExists{../02_figures/##5}{%
+          \pkb@includefig{../02_figures/##5}%
+        }{%
+          \fbox{%
+            \parbox[c][##2][c]{0.845\textwidth}{%
+              \centering
+              \pkb@figtitlewrap{##1}\\[0.8em]
+              \pkb@fignotewrap{##4}%
+            }%
+          }%
+        }%
+      }%
+    }%
+    \caption{##1}%
+    \ifblank{##6}{}{%
+      \begingroup
+      \setlength{\parindent}{0pt}%
+      \vspace{0.35em}%
+      \noindent{\ifcsname heiti\endcsname\heiti\else\bfseries\fi
+        \textbf{\pkb@fignotelabel}}%
+      \pkb@fignotewrap{##6}\par
+      \endgroup
+    }%
+    \label{##3}%
+  \end{figure}%
+}
+
+% ── 子图内插图 ──
+\newcommand{\FigPlotSubContent}[3]{%
+  \includegraphics[width=\linewidth]{##3}%
+}
+
+\captionsetup[subfigure]{font=small,skip=4pt}
+
+% ── 代码列表 ──
+\RequirePackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  breakatwhitespace=true,
+  linewidth=0.94\textwidth,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  keywordstyle=\bfseries,
+  commentstyle=\itshape,
+  columns=fullflexible,
+  tabsize=4,
+  showstringspaces=false
+}
+
+% ── 表格增强 ──
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{makecell}
+\RequirePackage{tabularx}
+\RequirePackage{longtable}
+\setlength{\LTcapwidth}{\textwidth}
+\renewcommand{\theadfont}{\bfseries}
+\setlength{\heavyrulewidth}{0.9pt}
+\setlength{\lightrulewidth}{0.55pt}
+\setlength{\cmidrulewidth}{0.55pt}
+\renewcommand{\arraystretch}{1.18}
+
+\newcommand{\topline}{\toprule}
+\newcommand{\midline}{\midrule}
+\newcommand{\bottomline}{\bottomrule}
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{J}{>{\raggedright\arraybackslash}X}
+
+% hyperref 在 paperkit-utils.sty 末尾统一加载（确保位于所有宏包之后）
+
+\endinput

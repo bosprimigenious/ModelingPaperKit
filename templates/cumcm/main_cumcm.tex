@@ -1,0 +1,147 @@
+% !TeX program = xelatex
+% ============================================================
+%  CUMCM (国赛/高教杯) 主模板
+%  全国大学生数学建模竞赛 — 中文论文
+% ============================================================
+\documentclass[UTF8,a4paper,zihao=-4,fontset=none]{ctexart}
+
+% ── 核心引擎 ──
+\usepackage{../../core/paperkit-base}
+\usepackage{../../core/paperkit-math}
+\usepackage{../../core/paperkit-utils}
+
+% ── 中文字体 ──
+\setCJKmainfont[AutoFakeBold=2.2]{SimSun}
+\setCJKsansfont[AutoFakeBold=2.2]{SimHei}
+\setCJKmonofont{FangSong}
+\setCJKfamilyfont{zhsong}[AutoFakeBold=2.2]{SimSun}
+\setCJKfamilyfont{zhhei}[AutoFakeBold=2.2]{SimHei}
+\setCJKfamilyfont{zhyahei}[AutoFakeBold=2.2]{Microsoft YaHei}
+
+\newcommand{\songti}{\CJKfamily{zhsong}}
+\newcommand{\heiti}{\CJKfamily{zhhei}}
+\newcommand{\yahei}{\CJKfamily{zhyahei}}
+
+\DeclareCaptionFont{capzh}{\songti}
+\captionsetup{
+  font={capzh,small},
+  labelfont={bf,capzh},
+}
+
+\AtBeginDocument{%
+  \zihao{-4}%
+  \songti
+}
+
+\setstretch{1.0}
+
+% ── 标题格式：一级四号黑体居中；二、三级小四黑体左对齐 ──
+\titleformat{\section}
+  {\centering\heiti\zihao{4}}
+  {\chinese{section}、}
+  {0em}
+  {}
+
+\titleformat{\subsection}
+  {\raggedright\heiti\zihao{-4}}
+  {\arabic{section}.\arabic{subsection}}
+  {0.6em}
+  {}
+
+\titleformat{\subsubsection}
+  {\raggedright\heiti\zihao{-4}}
+  {\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+  {0.6em}
+  {}
+
+\titlespacing*{\section}{0pt}{0.55em}{0.48em}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.4em}
+\titlespacing*{\subsubsection}{0pt}{0.6em}{0.3em}
+
+% ── 表内字体 ──
+\renewcommand{\theadfont}{\songti\zihao{-4}\bfseries}
+\AtBeginEnvironment{tabular}{\songti\zihao{-4}}
+\AtBeginEnvironment{longtable}{\songti\zihao{-4}}
+
+% ── 列表字体 ──
+\setlist{font=\songti\zihao{-4}}
+
+% ── 插图搜索路径 ──
+\graphicspath{{../02_figures/}{./figures/}}
+
+% ── 论文标题 (在此填写你的标题) ──
+\newcommand{\PaperTitle}{在此输入你的论文标题}
+
+\begin{document}
+
+% ============================================================
+% 第一页：承诺书
+% ============================================================
+\input{sections/cover.tex}
+
+\clearpage
+
+% ============================================================
+% 第二页：题目、摘要、关键词
+% ============================================================
+\thispagestyle{plain}
+\enlargethispage{5\baselineskip}
+\vspace*{-0.55\baselineskip}
+
+\begin{center}
+  \makebox[0.96\textwidth][c]{%
+    {\heiti\zihao{-4}\mbox{题\quad 目：}}%
+    \nobreak\hspace{0.25em plus 0.08em minus 0.06em}%
+    {\heiti\zihao{3}\raisebox{-0.12ex}{\mbox{\PaperTitle}}}%
+  }\\[0.28em]
+  \rule{0.96\textwidth}{0.45pt}
+\end{center}
+
+\vspace{0.32em}
+
+\noindent{\heiti\zihao{-4}\mbox{摘\quad 要：}}
+\vspace{0.04em}
+
+% 摘要正文（不超过一页）
+在这里输入你的摘要。摘要应包含：问题背景、所用方法、主要结果与结论。
+摘要应突出建模思路的独特性与结果的有效性，避免泛泛而谈。
+
+\vspace{0.18em}
+
+\noindent{\heiti\zihao{-4}\mbox{关键词：}}\par
+\vspace{0.04em}
+\noindent{\songti\zihao{-4}%
+关键词一；关键词二；关键词三；关键词四；关键词五\par}
+
+\clearpage
+
+% ============================================================
+% 第三页起：正文
+% ============================================================
+\input{sections/problem}
+\input{sections/analysis}
+\input{sections/assumptions}
+\input{sections/notation}
+\input{sections/model}
+\input{sections/solution}
+\input{sections/results}
+\input{sections/validation}
+\input{sections/evaluation}
+\input{sections/conclusion}
+
+% ── 参考文献 ──
+\clearpage
+\input{sections/references}
+
+% ── 附录 ──
+\clearpage
+\appendix
+\vspace*{0.3em}
+\begin{center}
+  {\heiti\zihao{4} 附录}
+\end{center}
+\vspace{0.65em}
+
+\input{sections/appendix}
+
+\end{document}
