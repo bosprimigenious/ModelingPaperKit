@@ -96,10 +96,11 @@
 \setlength{\floatsep}{10pt plus 3pt minus 3pt}
 \setlength{\intextsep}{8pt plus 3pt minus 3pt}
 
-% ── 列表 ──
+% ── 列表（紧凑，节省版面） ──
 \setlist{
-  itemsep=0pt,
   topsep=0.3em,
+  itemsep=0ex plus 0.1ex,
+  leftmargin=1.5em,
   parsep=0pt,
   partopsep=0pt
 }
@@ -221,6 +222,31 @@
     \fi
     \cftsecdotsep{4.5}%
     \cftbeforesecskip{7pt}%
+  }%
+}{}
+\makeatother
+
+% ── 图表标题样式（仅中文 ctex 模板；英文保持上方默认） ──
+\makeatletter
+\@ifpackageloaded{ctex}{%
+  \AtBeginDocument{%
+    \ifcsname songti\endcsname
+      \DeclareCaptionFont{pkb@capzh}{\songti\zihao{-4}}
+      \captionsetup[figure]{%
+        font={pkb@capzh},
+        labelfont={bf,pkb@capzh},
+        format=hang,
+        position=bottom,
+        skip=4pt
+      }%
+      \captionsetup[table]{%
+        font={pkb@capzh},
+        labelfont={bf,pkb@capzh},
+        format=hang,
+        position=top,
+        skip=4pt
+      }%
+    \fi
   }%
 }{}
 \makeatother
