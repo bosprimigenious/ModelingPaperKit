@@ -14,9 +14,9 @@
 - [x] 确保 `hyperref` 在所有包之后加载
 
 ### Task 1.2 — 增强 `core/paperkit-math.sty`
-- [ ] 添加更多常用数学环境（如 `remark`, `property` 等）
-- [ ] 添加矩阵快捷命令：`\mat`, `\vec`, `\trans`
-- [ ] 确保定理环境同时支持中英文（通过语言选项）
+- [x] 添加更多常用数学环境（如 `remark`, `property` 等）
+- [x] 添加矩阵快捷命令：`\mat`, `\vec`, `\trans`
+- [x] 确保定理环境同时支持中英文（通过语言选项）
 
 ### Task 1.3 — 增强 `core/paperkit-utils.sty`
 - [ ] 添加 `\todo` 和 `\draft` 标记宏（用于写作过程）

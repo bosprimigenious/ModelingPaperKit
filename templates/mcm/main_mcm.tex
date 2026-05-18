@@ -7,7 +7,7 @@
 
 % ── 核心引擎 ──
 \usepackage{../../core/paperkit-base}
-\usepackage{../../core/paperkit-math}
+\usepackage[en]{../../core/paperkit-math}
 \usepackage{../../core/paperkit-utils}
 
 % ── 英文字体 ──
@@ -33,11 +33,7 @@
 \titlespacing*{\section}{0pt}{0.8em}{0.5em}
 \titlespacing*{\subsection}{0pt}{0.6em}{0.3em}
 
-% ── 英文定理环境 ──
-\newtheorem{definition}{Definition}[section]
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}{Lemma}[section]
-\newtheorem{assumption}{Assumption}[section]
+% paperkit-math 已通过 lang=auto 加载英文定理环境
 
 % ── 插图搜索路径 ──
 \graphicspath{{../02_figures/}{./figures/}}

@@ -18,6 +18,7 @@
 \RequirePackage{xcolor}
 \RequirePackage{titlesec}
 \RequirePackage{etoolbox}
+\RequirePackage{xparse}
 \RequirePackage{fontspec}
 
 \RequireXeTeX
@@ -99,57 +100,59 @@
 
 \AtBeginEnvironment{table}{\centering}
 
-% ── 插图占位字体（跨 ctexart / article；在正文中按宏是否存在选择） ──
-\makeatletter
-\def\pkb@figtitlewrap#1{{\ifcsname heiti\endcsname\heiti\else\bfseries\fi ##1}}
-\def\pkb@fignotewrap#1{{\ifcsname zihao\endcsname\zihao{5}\else\small\fi ##1}}
-\def\pkb@fignotelabel{%
+% ── 插图占位字体（跨 ctexart / article） ──
+\NewDocumentCommand{\pkbFigTitleWrap}{m}{%
+  {\ifcsname heiti\endcsname\heiti\else\bfseries\fi #1}%
+}
+\NewDocumentCommand{\pkbFigNoteWrap}{m}{%
+  {\ifcsname zihao\endcsname\zihao{5}\else\small\fi #1}%
+}
+\newcommand{\pkbFigNoteLabel}{%
   \ifcsname heiti\endcsname 制图说明：\else Figure note:\fi
 }
 
 % ── 图片占位 / 自动插图宏 ──
 % \figplot{题注}{占位高度}{label}{占位说明}{文件名}{制图说明(可空)}
-\def\figplot#1#2#3#4#5#6{%
+\NewDocumentCommand{\figplot}{mmmmmm}{%
   \begin{figure}[H]
     \centering
-    \def\pkb@figpath{}%
-    \IfFileExists{##5}{\def\pkb@figpath{##5}}{}%
-    \ifx\pkb@figpath\empty
-      \IfFileExists{./figures/##5}{\def\pkb@figpath{./figures/##5}}{}%
-    \fi
-    \ifx\pkb@figpath\empty
-      \IfFileExists{../02_figures/##5}{\def\pkb@figpath{../02_figures/##5}}{}%
-    \fi
-    \ifx\pkb@figpath\empty
+    \def\pkbFigPath{}%
+    \IfFileExists{#5}{\edef\pkbFigPath{#5}}{}%
+    \IfFileExists{./figures/#5}{%
+      \ifx\pkbFigPath\empty\edef\pkbFigPath{./figures/#5}\fi
+    }{}%
+    \IfFileExists{../02_figures/#5}{%
+      \ifx\pkbFigPath\empty\edef\pkbFigPath{../02_figures/#5}\fi
+    }{}%
+    \ifx\pkbFigPath\empty
       \fbox{%
-        \parbox[c][##2][c]{0.845\textwidth}{%
+        \parbox[c][#2][c]{0.845\textwidth}{%
           \centering
-          \pkb@figtitlewrap{##1}\\[0.8em]
-          \pkb@fignotewrap{##4}%
+          \pkbFigTitleWrap{#1}\\[0.8em]
+          \pkbFigNoteWrap{#4}%
         }%
       }%
     \else
-      \includegraphics[width=0.845\textwidth]{\pkb@figpath}%
+      \includegraphics[width=0.845\textwidth]{\pkbFigPath}%
     \fi
-    \caption{##1}%
-    \ifblank{##6}{}{%
+    \caption{#1}%
+    \ifblank{#6}{}{%
       \begingroup
       \setlength{\parindent}{0pt}%
       \vspace{0.35em}%
       \noindent{\ifcsname heiti\endcsname\heiti\else\bfseries\fi
-        \textbf{\pkb@fignotelabel}}%
-      \pkb@fignotewrap{##6}\par
+        \textbf{\pkbFigNoteLabel}}%
+      \pkbFigNoteWrap{#6}\par
       \endgroup
     }%
-    \label{##3}%
+    \label{#3}%
   \end{figure}%
 }
-\makeatother
 
 % ── 子图内插图 ──
-\makeatletter
-\def\FigPlotSubContent#1#2#3{\includegraphics[width=\linewidth]{##3}}
-\makeatother
+\NewDocumentCommand{\FigPlotSubContent}{mmm}{%
+  \includegraphics[width=\linewidth]{#3}%
+}
 
 \captionsetup[subfigure]{font=small,skip=4pt}
 

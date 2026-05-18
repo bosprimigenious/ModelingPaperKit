@@ -1,31 +1,71 @@
 % ============================================================
 %  paperkit-math.sty — 数学公式与定理环境增强
+%  选项: zh | en | auto (默认 auto：检测 ctex 决定语言)
 % ============================================================
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{paperkit-math}[2026/05/18 v1.0 ModelingPaperKit Math]
+
+\makeatletter
+\newif\ifpkm@langzh
+\newif\ifpkm@langset
+\DeclareOption{zh}{\pkm@langzhtrue\pkm@langsettrue}
+\DeclareOption{en}{\pkm@langzhfalse\pkm@langsettrue}
+\DeclareOption{auto}{}
+\ExecuteOptions{auto}
+\ProcessOptions\relax
+\ifpkm@langset\else
+  \@ifpackageloaded{ctex}{\pkm@langzhtrue}{\pkm@langzhfalse}%
+\fi
+\makeatother
 
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{amsfonts}
 \RequirePackage{bm}
+\RequirePackage{amsthm}
+\RequirePackage{etoolbox}
 
 % ── 公式编号：section.formula ──
 \numberwithin{equation}{section}
 
-% ── 定理环境 ──
-\RequirePackage{amsthm}
-\newtheorem{definition}{定义}[section]
-\newtheorem{theorem}{定理}[section]
-\newtheorem{lemma}{引理}[section]
-\newtheorem{corollary}{推论}[section]
-\newtheorem{assumption}{假设}[section]
-\newtheorem{conjecture}{猜想}[section]
-\newtheorem{axiom}{公理}[section]
-\newtheorem{principle}{定律}[section]
-\newtheorem{problem}{问题}[section]
-\newtheorem{example}{例}[section]
-\newtheorem{proof}{证明}[section]
-\newtheorem{solution}{解}[section]
+% ── 定理环境（中英文） ──
+\makeatletter
+\ifpkm@langzh
+  \newtheorem{definition}{定义}[section]
+  \newtheorem{theorem}{定理}[section]
+  \newtheorem{lemma}{引理}[section]
+  \newtheorem{corollary}{推论}[section]
+  \newtheorem{assumption}{假设}[section]
+  \newtheorem{conjecture}{猜想}[section]
+  \newtheorem{axiom}{公理}[section]
+  \newtheorem{principle}{定律}[section]
+  \newtheorem{problem}{问题}[section]
+  \newtheorem{example}{例}[section]
+  \newtheorem{solution}{解}[section]
+  \newtheorem{remark}{注}[section]
+  \newtheorem{property}{性质}[section]
+\else
+  \newtheorem{definition}{Definition}[section]
+  \newtheorem{theorem}{Theorem}[section]
+  \newtheorem{lemma}{Lemma}[section]
+  \newtheorem{corollary}{Corollary}[section]
+  \newtheorem{assumption}{Assumption}[section]
+  \newtheorem{conjecture}{Conjecture}[section]
+  \newtheorem{axiom}{Axiom}[section]
+  \newtheorem{principle}{Principle}[section]
+  \newtheorem{problem}{Problem}[section]
+  \newtheorem{example}{Example}[section]
+  \newtheorem{solution}{Solution}[section]
+  \newtheorem{remark}{Remark}[section]
+  \newtheorem{property}{Property}[section]
+\fi
+\makeatother
+
+% ── 矩阵 / 向量快捷命令 ──
+\newcommand{\mat}[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand{\trans}{\mathsf{T}}
+% TODO(director): \vec 与 LaTeX 内置重音同名；此处重定义为粗体向量，是否接受？
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
 
 % ── 常用数学命令 ──
 \newcommand{\R}{\mathbb{R}}
