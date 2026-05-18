@@ -120,47 +120,47 @@
 > 将其成熟的排版技巧融入我们的 Core+Plugins 架构。**原则：能力进 core/，赛事差异留 template/。**
 
 ### Task 7.1 — 集成 cleveref 智能交叉引用
-- [ ] 在 `core/paperkit-base.sty` 末尾添加 `\RequirePackage{cleveref}`
-- [ ] 配置中文引用格式：`\crefformat{figure}{图~#2#1#3}`，同理 table、equation
-- [ ] 配置英文回退：`\ifpkm@langzh` 分支（参考 paperkit-math.sty 的 zh/en/auto 模式）
-- [ ] 对 theorem/lemma/definition 等也配置 `\crefformat`（中英双语）
-- [ ] 确保 `cleveref` 在所有包之后加载（已在 paperkit-base.sty 末尾则自动满足）
+- [x] 在 `core/paperkit-base.sty` 末尾添加 `\RequirePackage{cleveref}`
+- [x] 配置中文引用格式：`\crefformat{figure}{图~#2#1#3}`，同理 table、equation
+- [x] 配置英文回退：`\ifpkm@langzh` 分支（参考 paperkit-math.sty 的 zh/en/auto 模式）
+- [x] 对 theorem/lemma/definition 等也配置 `\crefformat`（中英双语）
+- [x] 确保 `cleveref` 在所有包之后加载（已在 paperkit-base.sty 末尾则自动满足）
 
 ### Task 7.2 — 修复浮动体排版参数
-- [ ] 在 `core/paperkit-base.sty` 的 `\geometry` 之后添加浮动参数：
+- [x] 在 `core/paperkit-base.sty` 的 `\geometry` 之后添加浮动参数：
   - `\renewcommand*{\textfraction}{0.05}`（允许页面 95% 为浮动体）
   - `\renewcommand*{\topfraction}{0.9}`
   - `\renewcommand*{\bottomfraction}{0.8}`
   - `\renewcommand*{\floatpagefraction}{0.85}`
-- [ ] 添加 `\DeclareGraphicsExtensions` 和 `\graphicspath`（搜索 figures/ 等常见目录）
+- [x] 添加 `\DeclareGraphicsExtensions` 和 `\graphicspath`（搜索 figures/ 等常见目录）
 
 ### Task 7.3 — 添加上标引用命令
-- [ ] 在 `core/paperkit-math.sty` 添加 `\newcommand{\upcite}[1]{\textsuperscript{\cite{#1}}}`
+- [x] 在 `core/paperkit-math.sty` 添加 `\newcommand{\upcite}[1]{\textsuperscript{\cite{#1}}}`
 
 ### Task 7.4 — 优化目录 (TOC) 格式
-- [ ] 在 `core/paperkit-base.sty` 中添加 `tocloft` 的配置（中文模板下）：
+- [x] 在 `core/paperkit-base.sty` 中添加 `tocloft` 的配置（中文模板下）：
   - `\cftsecfont` → 黑体四号
   - `\cftsecdotsep` → 4.5
   - `\cftbeforesecskip` → 7pt
-- [ ] 确保英文模板下不影响原有 TOC 样式
+- [x] 确保英文模板下不影响原有 TOC 样式
 
 ### Task 7.5 — 重构 CUMCM 封面为 Token 模式
-- [ ] 参考 CUMCMThesis 的 `\tihao{}`、`\baominghao{}` 设计
-- [ ] 在 `templates/cumcm/sections/cover.tex` 顶部添加 token 命令定义：
+- [x] 参考 CUMCMThesis 的 `\tihao{}`、`\baominghao{}` 设计
+- [x] 在 `templates/cumcm/sections/cover.tex` 顶部添加 token 命令定义：
   ```latex
   \newcommand{\cumcmTihao}[1]{\renewcommand{\pkb@tihao}{#1}}
   \newcommand{\cumcmBaominghao}[1]{\renewcommand{\pkb@baominghao}{#1}}
   % ... schoolname, membera/b/c, supervisor, date
   ```
-- [ ] 将承诺书中的 `[在此填写...]` 替换为 `\pkb@tihao` 等 token
-- [ ] 在 `main_cumcm.tex` 中添加 token 赋值区域（注释引导用户填写）
-- [ ] 保留 `% TODO(director): 请核对是否与 2026 年国赛最新承诺书版式一致`
+- [x] 将承诺书中的 `[在此填写...]` 替换为 `\pkb@tihao` 等 token
+- [x] 在 `main_cumcm.tex` 中添加 token 赋值区域（注释引导用户填写）
+- [x] 保留 `% TODO(director): 请核对是否与 2026 年国赛最新承诺书版式一致`
 
 ### Task 7.6 — 添加 withoutpreface 编译选项
-- [ ] 参考 CUMCMThesis 的 `withoutpreface` 选项
-- [ ] 在 `main_cumcm.tex` 添加注释：电子版提交时可注释掉 `\input{sections/cover}`
-- [ ] 在 `templates/wuyi/main_wuyi.tex` 同样添加注释引导
-- [ ] 无需修改 core/（这是赛事特定行为）
+- [x] 参考 CUMCMThesis 的 `withoutpreface` 选项
+- [x] 在 `main_cumcm.tex` 添加注释：电子版提交时可注释掉 `\input{sections/cover}`
+- [x] 在 `templates/wuyi/main_wuyi.tex` 同样添加注释引导
+- [x] 无需修改 core/（这是赛事特定行为）
 
 ---
 
