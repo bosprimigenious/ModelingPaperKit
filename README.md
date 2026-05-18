@@ -74,16 +74,6 @@ python scripts/new_contest.py --name icm --lang en
 
 内置可参考模板：`cumcm`、`mcm`、`wuyi`、`beijing`（见 `scripts/new_contest.py` 中 `BUILTIN_TEMPLATES`）。
 
-## 任务清单工具（可选）
-
-配合根目录 `CURSOR_TASKS.md` 使用：
-
-```bash
-python scripts/task_runner.py next      # 下一项待办
-python scripts/task_runner.py prompt    # 生成 Cursor Agent 提示词
-python scripts/task_runner.py list      # 列出未完成项
-```
-
 ## 依赖
 
 | 类型 | 要求 |
@@ -111,7 +101,6 @@ ModelingPaperKit/
 │   ├── clean.py                   # 清理缓存
 │   ├── verify_build.py            # 全量编译验证
 │   ├── new_contest.py             # 新赛事脚手架
-│   ├── task_runner.py             # CURSOR_TASKS.md 辅助
 │   └── generate_dummy_data.py     # 合成示例数据
 ├── examples/
 │   ├── cumcm_walkthrough/         # 图文并茂示例论文（main.tex + figures/）
@@ -122,8 +111,7 @@ ModelingPaperKit/
 │   ├── getting-started.md
 │   ├── template-guide.md
 │   └── faq.md
-├── CURSOR_TASKS.md                # 开发任务清单（与仓库同步）
-└── README.md
+├── README.md
 ```
 
 ## 架构说明（Core + Plugins）
