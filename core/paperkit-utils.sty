@@ -98,8 +98,7 @@
 \newcommand{\email}[1]{[已脱敏]}
 \newcommand{\phone}[1]{[已脱敏]}
 
-% ── 上标引用 ──
-\newcommand{\upcite}[1]{$^{\mbox{\scriptsize \cite{#1}}}$}
+% 上标引用见 paperkit-math.sty 的 \upcite
 \newcommand{\supercite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
 
 % ── 实用宏 ──
@@ -116,5 +115,48 @@
   citecolor=black,
   urlcolor=black
 }
+
+% ── cleveref（须在 hyperref 之后） ──
+\RequirePackage{cleveref}
+\ifpkuLangZh
+  \crefname{figure}{图}{图}%
+  \crefname{table}{表}{表}%
+  \crefname{equation}{式}{式}%
+  \crefformat{figure}{图~##2##1##3}%
+  \crefformat{table}{表~##2##1##3}%
+  \crefformat{equation}{式~##2##1##3}%
+  \Crefformat{figure}{图~##2##1##3}%
+  \Crefformat{table}{表~##2##1##3}%
+  \Crefformat{equation}{式~##2##1##3}%
+  \crefformat{theorem}{定理~##2##1##3}%
+  \crefformat{lemma}{引理~##2##1##3}%
+  \crefformat{definition}{定义~##2##1##3}%
+  \crefformat{corollary}{推论~##2##1##3}%
+  \crefformat{assumption}{假设~##2##1##3}%
+  \crefformat{remark}{注~##2##1##3}%
+  \crefformat{property}{性质~##2##1##3}%
+  \crefformat{example}{例~##2##1##3}%
+  \Crefformat{theorem}{定理~##2##1##3}%
+  \Crefformat{lemma}{引理~##2##1##3}%
+  \Crefformat{definition}{定义~##2##1##3}%
+\else
+  \crefformat{figure}{Fig.~##2##1##3}%
+  \crefformat{table}{Table~##2##1##3}%
+  \crefformat{equation}{Eq.~##2##1##3}%
+  \Crefformat{figure}{Figure~##2##1##3}%
+  \Crefformat{table}{Table~##2##1##3}%
+  \Crefformat{equation}{Equation~##2##1##3}%
+  \crefformat{theorem}{Theorem~##2##1##3}%
+  \crefformat{lemma}{Lemma~##2##1##3}%
+  \crefformat{definition}{Definition~##2##1##3}%
+  \crefformat{corollary}{Corollary~##2##1##3}%
+  \crefformat{assumption}{Assumption~##2##1##3}%
+  \crefformat{remark}{Remark~##2##1##3}%
+  \crefformat{property}{Property~##2##1##3}%
+  \crefformat{example}{Example~##2##1##3}%
+  \Crefformat{theorem}{Theorem~##2##1##3}%
+  \Crefformat{lemma}{Lemma~##2##1##3}%
+  \Crefformat{definition}{Definition~##2##1##3}%
+\fi
 
 \endinput
