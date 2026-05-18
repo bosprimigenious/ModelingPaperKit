@@ -18,7 +18,12 @@
 \ExecuteOptions{auto}
 \ProcessOptions\relax
 \ifpkm@langset\else
-  \@ifpackageloaded{ctex}{\pkm@langzhtrue}{\pkm@langzhfalse}%
+  \@ifclassloaded{ctexart}{\pkm@langzhtrue}{%
+    \@ifclassloaded{ctexrep}{\pkm@langzhtrue}{%
+      \@ifclassloaded{ctexbook}{\pkm@langzhtrue}{%
+        \@ifpackageloaded{ctex}{\pkm@langzhtrue}{\pkm@langzhfalse}%
+      }}%
+  }%
 \fi
 \makeatother
 
