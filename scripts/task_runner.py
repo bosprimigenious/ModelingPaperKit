@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """CURSOR_TASKS.md 任务清单辅助工具（供本机轮询 + Cursor Agent 接力）。
 
+默认读取仓库根目录的 CURSOR_TASKS.md（已纳入版本库，与 clone 同进退）。
+本地副本可用 --file 指定。
+
 用法:
     python scripts/task_runner.py next          # 输出下一项未完成任务
     python scripts/task_runner.py list          # 列出所有未完成子项
@@ -38,7 +41,11 @@ class TaskItem:
 
 def load_lines(path: Path) -> list[str]:
     if not path.is_file():
-        print(f"[ERROR] 任务文件不存在: {path}", file=sys.stderr)
+        print(
+            f"[ERROR] 任务文件不存在: {path}\n"
+            f"  请确认已 clone 仓库且包含 CURSOR_TASKS.md，或使用 --file 指定路径。",
+            file=sys.stderr,
+        )
         sys.exit(1)
     return path.read_text(encoding="utf-8").splitlines()
 
