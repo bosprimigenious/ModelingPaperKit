@@ -1,5 +1,9 @@
 # 快速上手 (Getting Started)
 
+> EN: Install TeX Live/MiKTeX with `xelatex`, pick a template under `templates/`, run `python scripts/build.py --target <name>`. See `docs/faq.md` for troubleshooting.
+
+# 中文说明
+
 ## 环境准备
 
 1. 安装 TeX Live 2024+ 或 MiKTeX
