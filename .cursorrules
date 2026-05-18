@@ -27,12 +27,19 @@ You are a LaTeX typesetting engineer working on ModelingPaperKit, a multi-compet
 - `scripts/clean.py` removes all build artifacts.
 - The build script must work from any working directory.
 
-## Commit discipline (MANDATORY)
-- 最小修改单元原则：每完成一个独立逻辑改动就立即提交，不要攒一批再交。
+## Commit discipline (MANDATORY — 审查粒度依赖于此)
+- **硬性上限：工作区同时修改的文件数不得超过 5 个。超过时必须立即暂停，将已完成改动分批提交后再继续。**
+- 每次提交 1–3 个关联文件，不是 1 个 Task。
+- 一个 Task 可能拆成多个 commit：每完成一个可独立描述的逻辑片段就交。
+- 跨目录改动必须分开提交：
+  - `core/` 的改动 → 独立 commit
+  - `templates/<赛事>/` 的改动 → 独立 commit
+  - `scripts/` 的改动 → 独立 commit
+  - `CURSOR_TASKS.md` 勾选 → 可附在相关 commit 或独立 docs commit
 - 每次提交流程：
-  1. `git add <具体改动的文件>`（严禁 `git add .` 或 `git add -A`）
+  1. `git add <具体文件>`（严禁 `git add .` 或 `git add -A`）
   2. `git commit -m "type: 中文描述"`
-  3. 如果改动对应 CURSOR_TASKS.md 中的某个 Task，在 commit 后把该 Task 标为 `[x]`
+  3. 立刻检查 `git status`，确认工作区干净或只剩少量关联改动
 - Commit 类型与中文消息格式（参考昨天）：
   - `feat: 为 paperkit-math.sty 添加矩阵快捷命令`
   - `fix: 修复 paperkit-base.sty 中 figplot 路径解析逻辑`
