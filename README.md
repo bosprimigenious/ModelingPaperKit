@@ -134,6 +134,7 @@ ModelingPaperKit/
 - [快速上手](docs/getting-started.md)
 - [模板编写指南](docs/template-guide.md)
 - [常见问题](docs/faq.md)
+- [ModelingPaperKit Skill](skills/modeling-paperkit/SKILL.md)
 
 ## 许可
 

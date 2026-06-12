@@ -1,0 +1,4 @@
+display_name: ModelingPaperKit
+short_description: Write, compile, and review math modeling contest papers with ModelingPaperKit.
+default_prompt: Help me work on a ModelingPaperKit math modeling paper. Inspect the target template, follow the repository LaTeX conventions, and guide me through build or final review.
+
