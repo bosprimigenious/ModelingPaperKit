@@ -2,7 +2,7 @@
 
 日期：2026-06-09
 
-本文是在 [数学建模 Skill 市场调研报告](math-modeling-skill-market-report.md)、[真实数学建模比赛工作流调研](real-competition-workflow-research.md) 和 [ModelingPaperKit Skill 建设计划](modeling-paperkit-skill-plan.md) 的基础上，进一步明确 `ModelingPaperKit` 从 LaTeX 模板仓库升级为 **Skill + Agent + 全栈应用** 的架构方案。
+本文是在 [数学建模 Skill 市场调研报告](math-modeling-skill-market-report.md)、[真实数学建模比赛工作流调研](real-competition-workflow-research.md)、[ModelingPaperKit Skill 建设计划](modeling-paperkit-skill-plan.md) 和 [ModelingPaperKit Frontend Plan](modeling-paperkit-frontend-plan.md) 的基础上，进一步明确 `ModelingPaperKit` 从 LaTeX 模板仓库升级为 **Skill + Agent + 全栈应用** 的架构方案。
 
 ## 1. 总体判断
 
@@ -237,6 +237,8 @@ Docker Compose
 - RQ/Celery 用于编译 LaTeX、跑检查、生成图表等后台任务。
 
 ### 4.4 前端技术栈
+
+前端详细产品计划见：[ModelingPaperKit Frontend Plan](modeling-paperkit-frontend-plan.md)。
 
 推荐：
 

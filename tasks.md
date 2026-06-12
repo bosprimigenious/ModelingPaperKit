@@ -8,6 +8,7 @@ This task plan combines:
 - `docs/real-competition-workflow-research.md`
 - `docs/modeling-paperkit-skill-plan.md`
 - `docs/modeling-paperkit-upgrade-architecture.md`
+- `docs/modeling-paperkit-frontend-plan.md`
 
 The main decision is:
 
@@ -16,6 +17,378 @@ Build deterministic repository capabilities first.
 Wrap them as a modeling-paperkit skill.
 Then build a lightweight CLI Agent.
 Only after that, build the full-stack Studio.
+```
+
+## Current Execution Plan
+
+Use this section as the active assignment board. Later phases remain below as the full backlog.
+
+### Roles
+
+Owner:
+
+- Chooses the next task card.
+- Approves scope changes.
+- Decides whether review findings are accepted or deferred.
+
+Implementer Agent, for example Cursor:
+
+- Implements only the assigned task card.
+- Does not start future phases unless explicitly assigned.
+- Runs required acceptance commands before reporting completion.
+- Reports changed files, command results, risks, and gaps.
+
+Reviewer Agent, for example Codex:
+
+- Reviews the implementation against this file.
+- Runs acceptance commands independently.
+- Reports findings first, ordered by severity.
+- Does not fix code unless explicitly asked.
+
+### Status Labels
+
+Use these labels when coordinating work:
+
+```text
+TODO
+IN_PROGRESS
+BLOCKED
+READY_FOR_REVIEW
+NEEDS_CHANGES
+ACCEPTED
+DEFERRED
+```
+
+### Finding Severity
+
+```text
+P0 Blocker: required command fails, data loss risk, unstable JSON contract, or scope violation.
+P1 Required: required feature missing, wrong exit code, or common failure unhandled.
+P2 Improvement: robustness, clearer messages, more edge cases.
+P3 Nice-to-have: refactor, polish, extra docs.
+```
+
+### Sprint 1: Phase 0 Core Checkers
+
+Do these in order. Each task should be a separate implementation handoff and a separate review.
+
+#### Task Card 1: Build Log Summarizer
+
+Status: TODO
+
+Implementer scope:
+
+- Create `scripts/summarize_build_log.py`.
+- Optional: add `tests/fixtures/logs/latex_error.log`.
+
+Out of scope:
+
+- Do not implement `inspect_template.py`.
+- Do not implement `check_tex_links.py`.
+- Do not implement `check_submission.py`.
+- Do not create skill, agent, backend, or frontend files.
+
+Required CLI:
+
+```bash
+python scripts/summarize_build_log.py --help
+python scripts/summarize_build_log.py --target cumcm --format json
+python scripts/summarize_build_log.py --log tests/fixtures/logs/latex_error.log --format json
+```
+
+Required JSON contract:
+
+```json
+{
+  "tool": "summarize_build_log",
+  "target": "cumcm",
+  "status": "warning",
+  "summary": {
+    "critical": 0,
+    "warning": 1,
+    "info": 0
+  },
+  "findings": [
+    {
+      "severity": "warning",
+      "code": "overfull_hbox",
+      "message": "Overfull hbox found",
+      "path": "templates/cumcm/out/main_cumcm.log",
+      "line": null
+    }
+  ]
+}
+```
+
+Exit code:
+
+- `0` if no `critical` findings.
+- Non-zero if critical compile blockers are found or arguments are invalid.
+
+Reviewer checks:
+
+- `--help` works.
+- `--target` and `--log` both work.
+- Missing log does not traceback.
+- JSON contains `tool`, `target`, `status`, `summary`, `findings`.
+- Each finding contains `severity`, `code`, `message`, `path`, `line`.
+- Severity is only `critical`, `warning`, or `info`.
+
+#### Task Card 2: Template Inspector
+
+Status: TODO
+
+Implementer scope:
+
+- Create `scripts/inspect_template.py`.
+- Reuse target metadata from `scripts/build.py` or centralize a small shared target map if necessary.
+
+Out of scope:
+
+- Do not inspect labels/images deeply; that belongs to Task Card 3.
+- Do not run LaTeX builds.
+- Do not create `.paperkit/state.json` yet.
+
+Required CLI:
+
+```bash
+python scripts/inspect_template.py --help
+python scripts/inspect_template.py --target cumcm --format json
+python scripts/inspect_template.py --target mcm --format json
+python scripts/inspect_template.py --target example --format json
+```
+
+Required JSON contract:
+
+```json
+{
+  "tool": "inspect_template",
+  "target": "cumcm",
+  "status": "warning",
+  "summary": {
+    "critical": 0,
+    "warning": 1,
+    "info": 3
+  },
+  "template": {
+    "dir": "templates/cumcm",
+    "main": "main_cumcm.tex",
+    "out_dir": "templates/cumcm/out"
+  },
+  "sections": {
+    "present": ["problem.tex"],
+    "missing": []
+  },
+  "artifacts": {
+    "pdf": null,
+    "log": null
+  },
+  "findings": []
+}
+```
+
+Reviewer checks:
+
+- Works for all targets: `cumcm`, `mcm`, `wuyi`, `beijing`, `example`.
+- Does not modify files.
+- Detects special pages such as `cover`, `ai_declaration`, `summary_sheet`.
+- Missing PDF/log is reported as warning or info, not a crash.
+
+#### Task Card 3: TeX Link and Asset Checker
+
+Status: TODO
+
+Implementer scope:
+
+- Create `scripts/check_tex_links.py`.
+- Parse main file and included section files.
+- Check labels, references, includegraphics, and `\figplot` assets.
+
+Out of scope:
+
+- Do not do identity scanning.
+- Do not do contest-specific submission checks.
+- Do not compile LaTeX.
+
+Required CLI:
+
+```bash
+python scripts/check_tex_links.py --help
+python scripts/check_tex_links.py --target cumcm --format json
+python scripts/check_tex_links.py --target mcm --format json
+python scripts/check_tex_links.py --target example --format json
+```
+
+Required JSON contract:
+
+```json
+{
+  "tool": "check_tex_links",
+  "target": "example",
+  "status": "warning",
+  "summary": {
+    "critical": 0,
+    "warning": 1,
+    "info": 0
+  },
+  "findings": [
+    {
+      "severity": "warning",
+      "code": "missing_figure",
+      "message": "Figure file was not found in configured graphics paths",
+      "path": "examples/cumcm_walkthrough/sections/model.tex",
+      "line": 42
+    }
+  ]
+}
+```
+
+Reviewer checks:
+
+- Does not flag labels inside comments.
+- Detects duplicate labels.
+- Detects missing figures.
+- Supports `\ref`, `\cref`, `\Cref`, and `\eqref`.
+- Respects `figures/`, `../02_figures/`, and `\graphicspath`.
+
+#### Task Card 4: Submission Checker
+
+Status: TODO
+
+Implementer scope:
+
+- Create `scripts/check_submission.py`.
+- Reuse Task Cards 1-3 checkers.
+- Add identity leak scan and contest-mode checks.
+
+Out of scope:
+
+- Do not create AI usage export yet.
+- Do not create supporting material package yet.
+- Do not modify paper files.
+
+Required CLI:
+
+```bash
+python scripts/check_submission.py --help
+python scripts/check_submission.py --target cumcm --format json
+python scripts/check_submission.py --target cumcm --contest-mode cumcm_active --format json
+python scripts/check_submission.py --target mcm --contest-mode mcm_active --format json
+```
+
+Required JSON contract:
+
+```json
+{
+  "tool": "check_submission",
+  "target": "cumcm",
+  "contest_mode": "cumcm_active",
+  "status": "warning",
+  "summary": {
+    "critical": 0,
+    "warning": 2,
+    "info": 1
+  },
+  "findings": [
+    {
+      "severity": "warning",
+      "code": "missing_ai_usage_log",
+      "message": "AI usage details are expected when AI assistance was used",
+      "path": null,
+      "line": null
+    }
+  ]
+}
+```
+
+Reviewer checks:
+
+- Calls or imports Phase 0 checkers instead of duplicating all logic.
+- Suspected identity findings are phrased as suspected, not proven.
+- CUMCM and MCM modes produce different rule checks.
+- Missing PDF/log/support files are reported cleanly.
+
+#### Task Card 5: Phase 0 Smoke Test
+
+Status: TODO
+
+Implementer scope:
+
+- Add a minimal smoke test script or pytest tests.
+- Include fixtures only if needed.
+- Verify Phase 0 commands run on a clean checkout.
+
+Required commands:
+
+```bash
+python scripts/summarize_build_log.py --help
+python scripts/inspect_template.py --target cumcm --format json
+python scripts/inspect_template.py --target mcm --format json
+python scripts/check_tex_links.py --target example --format json
+python scripts/check_submission.py --target cumcm --format json
+```
+
+Reviewer checks:
+
+- Smoke tests do not require TeX installation.
+- Tests do not write to template directories except temporary files under a test fixture or temp dir.
+- All scripts preserve the shared JSON finding contract.
+
+### Implementer Final Response Template
+
+```text
+## Scope
+Assigned task card:
+Out of scope:
+
+## Changed Files
+- ...
+
+## Implemented
+- ...
+
+## Acceptance Commands
+- `...` PASS
+- `...` FAIL: ...
+
+## JSON Contract
+Example output:
+```json
+...
+```
+
+## Risks / Gaps
+- ...
+
+## Status
+READY_FOR_REVIEW
+```
+
+### Reviewer Final Response Template
+
+```text
+## Verdict
+PASS / PASS WITH WARNINGS / NEEDS CHANGES
+
+## Findings
+- [P0] path:line - issue
+- [P1] path:line - issue
+
+## Commands Run
+- `...` PASS
+- `...` FAIL
+
+## Contract Check
+- CLI flags:
+- JSON shape:
+- Exit codes:
+- Scope control:
+
+## Required Fixes
+- ...
+
+## Optional Follow-ups
+- ...
 ```
 
 ## Phase 0: Deterministic PaperKit Checks
@@ -502,6 +875,8 @@ Acceptance:
 
 Goal: expose the CLI Agent and repository checks through a visual workspace after scripts/skill/CLI are stable.
 
+Frontend product details are specified in `docs/modeling-paperkit-frontend-plan.md`. The frontend should be a math modeling paper delivery workbench, not a landing page or generic chat UI.
+
 ### P5.1 Backend
 
 - [ ] Create `backend/`.
@@ -530,14 +905,21 @@ Acceptance:
 
 - [ ] Create `frontend/`.
 - [ ] Use React + Vite + TypeScript.
+- [ ] Start with mock JSON if backend APIs are not ready.
 - [ ] Build pages/components:
   - [ ] Dashboard
+  - [ ] Project Overview
   - [ ] Project page
   - [ ] Section editor
   - [ ] Agent panel
   - [ ] Build status
   - [ ] Review checklist
   - [ ] Log summary
+- [ ] Add contest-specific views when backend data exists:
+  - [ ] Figures & Tables
+  - [ ] AI Usage
+  - [ ] Supporting Materials
+  - [ ] Source Log
 - [ ] Keep UI workbench-like, not landing-page-like.
 
 Acceptance:
@@ -546,6 +928,7 @@ Acceptance:
 - [ ] User can trigger build/review.
 - [ ] User can inspect findings and logs.
 - [ ] User can confirm or reject Agent changes.
+- [ ] User can distinguish CUMCM and MCM submission risks.
 
 ### P5.3 PDF and Artifact View
 

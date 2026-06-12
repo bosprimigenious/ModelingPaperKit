@@ -10,6 +10,8 @@
 
 全栈与 Agent 升级蓝图见：[ModelingPaperKit 升级架构蓝图](modeling-paperkit-upgrade-architecture.md)。
 
+前端产品计划见：[ModelingPaperKit Frontend Plan](modeling-paperkit-frontend-plan.md)。
+
 ## 0. 核心决策
 
 本项目不应把 **Agent 开发** 和 **Skill 集成** 视为二选一。更合理的判断是：
