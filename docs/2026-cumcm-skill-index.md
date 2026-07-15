@@ -32,6 +32,7 @@ Run:
 
 ```bash
 python3 scripts/check_skills.py skills
+python3 scripts/check_submission.py --target cumcm
 git diff --check
 ```
 

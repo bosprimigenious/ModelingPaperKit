@@ -57,6 +57,7 @@ python scripts/build.py --target cumcm
 | `python scripts/clean.py` | 清理各模板下的编译缓存 |
 | `python scripts/verify_build.py` | 全量编译并检查 PDF / 日志（0 Error、Overfull 统计） |
 | `python scripts/check_skills.py skills/cumcm-final-review` | 检查 Codex skill frontmatter、TODO 和基础结构 |
+| `python scripts/check_submission.py --target cumcm` | 检查国赛电子版默认模式、构建产物和支撑材料基础风险 |
 
 指定 TeX 引擎路径（可选）：
 
