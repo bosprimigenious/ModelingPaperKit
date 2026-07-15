@@ -11,6 +11,7 @@ Use this skill as the last integrated pass.
 
 1. Start with `git status --short` and avoid overwriting user work.
 2. Run available checks:
+   - `python3 scripts/preflight.py --target cumcm`
    - `git diff --check`
    - `python3 scripts/summarize_build_log.py --target cumcm`
    - `python3 scripts/build.py --target cumcm` when `xelatex` is available

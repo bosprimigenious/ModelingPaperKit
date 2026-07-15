@@ -31,6 +31,7 @@ This index maps common 2026 CUMCM preparation tasks to the repository skills.
 Run:
 
 ```bash
+python3 scripts/preflight.py --target cumcm
 python3 scripts/inspect_template.py --target cumcm
 python3 scripts/check_skills.py skills
 python3 scripts/check_identity_leaks.py templates/cumcm

@@ -14,7 +14,7 @@ Use this skill for final assembly, not for solving the problem.
 3. Verify electronic PDF starts at the title/abstract page.
 4. Verify paper mode includes commitment and numbering pages when needed.
 5. Verify supporting materials include code, data notes, generated outputs, and AI-use details if applicable.
-6. Run `python3 scripts/check_submission.py --target cumcm` for deterministic preflight checks.
+6. Run `python3 scripts/preflight.py --target cumcm` for the integrated preflight, or `python3 scripts/check_submission.py --target cumcm` for submission-only checks.
 7. Run anonymity and final review checks before declaring readiness.
 8. Read `references/checklist.md` for package contents.
 9. Read `references/package-layout.md` when assembling electronic, paper, or supporting-material packages.
