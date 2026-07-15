@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -36,6 +37,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--target", default="cumcm", choices=sorted(TARGETS))
     parser.add_argument("--support-dir", default=None, help="Optional supporting material directory")
     parser.add_argument("--format", choices=["text", "json"], default="text")
+    parser.add_argument("--skip-identity", action="store_true", help="Skip identity leak preflight scan")
     return parser.parse_args()
 
 
@@ -116,6 +118,32 @@ def check_support_dir(findings: list[dict[str, object]], support_dir: Path) -> N
             add_finding(findings, "warning", "identity_hint_in_filename", "Filename may contain identity-related text", rel)
 
 
+def check_identity_scan(findings: list[dict[str, object]]) -> None:
+    proc = subprocess.run(
+        [sys.executable, "scripts/check_identity_leaks.py", "templates/cumcm", "--format", "json"],
+        cwd=REPO_ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if proc.returncode != 0:
+        add_finding(findings, "warning", "identity_scan_failed", "Identity scan command failed")
+        return
+    try:
+        result = json.loads(proc.stdout)
+    except json.JSONDecodeError:
+        add_finding(findings, "warning", "identity_scan_unreadable", "Identity scan JSON output was unreadable")
+        return
+    for finding in result.get("findings", []):
+        add_finding(
+            findings,
+            "warning",
+            f"identity_{finding.get('code', 'possible_leak')}",
+            f"Possible identity leak at {finding.get('path')}:{finding.get('line')}",
+            Path(str(finding.get("path"))) if finding.get("path") else None,
+        )
+
+
 def summarize(findings: list[dict[str, object]]) -> dict[str, int]:
     return {
         "critical": sum(1 for f in findings if f["severity"] == "critical"),
@@ -141,6 +169,9 @@ def main() -> int:
         if not support_dir.is_absolute():
             support_dir = REPO_ROOT / support_dir
         check_support_dir(findings, support_dir)
+
+    if not args.skip_identity:
+        check_identity_scan(findings)
 
     summary = summarize(findings)
     result = {

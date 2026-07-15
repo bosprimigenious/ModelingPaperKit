@@ -13,9 +13,10 @@ Use this skill before packaging or submitting electronic materials.
 2. Check LaTeX special pages are disabled for electronic submission.
 3. Check PDF and image metadata when tools are available.
 4. Check code comments, notebook outputs, CSV headers, and generated figures.
-5. Read `references/checklist.md` for patterns and surfaces.
-6. Read `references/patterns.md` for concrete search patterns and red flags.
-7. Read `references/examples.md` when choosing paper-only versus support-package scan scope.
+5. Run `python3 scripts/check_identity_leaks.py templates/cumcm` for deterministic text scanning.
+6. Read `references/checklist.md` for patterns and surfaces.
+7. Read `references/patterns.md` for concrete search patterns and red flags.
+8. Read `references/examples.md` when choosing paper-only versus support-package scan scope.
 
 ## Guardrails
 
