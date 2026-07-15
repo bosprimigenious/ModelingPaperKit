@@ -56,6 +56,7 @@ python scripts/build.py --target cumcm
 | `python scripts/build.py --target cumcm --watch` | 监视 `.tex` 变更并自动重编译 |
 | `python scripts/clean.py` | 清理各模板下的编译缓存 |
 | `python scripts/verify_build.py` | 全量编译并检查 PDF / 日志（0 Error、Overfull 统计） |
+| `python scripts/summarize_build_log.py --target cumcm` | 摘要化 LaTeX 构建日志中的错误、引用和盒子警告 |
 | `python scripts/check_skills.py skills/cumcm-final-review` | 检查 Codex skill frontmatter、TODO 和基础结构 |
 | `python scripts/check_submission.py --target cumcm` | 检查国赛电子版默认模式、构建产物和支撑材料基础风险 |
 | `python scripts/check_identity_leaks.py templates/cumcm` | 扫描电子版模板和材料中的潜在身份泄露 |

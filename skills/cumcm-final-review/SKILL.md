@@ -12,6 +12,7 @@ Use this skill as the last integrated pass.
 1. Start with `git status --short` and avoid overwriting user work.
 2. Run available checks:
    - `git diff --check`
+   - `python3 scripts/summarize_build_log.py --target cumcm`
    - `python3 scripts/build.py --target cumcm` when `xelatex` is available
 3. Review the PDF/log if generated.
 4. Check paper logic, figures/tables, references, AI records, anonymity, and support-material list.
