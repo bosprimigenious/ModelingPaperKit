@@ -144,6 +144,33 @@ def check_identity_scan(findings: list[dict[str, object]]) -> None:
         )
 
 
+def check_tex_links(findings: list[dict[str, object]]) -> None:
+    proc = subprocess.run(
+        [sys.executable, "scripts/check_tex_links.py", "--target", "cumcm", "--format", "json"],
+        cwd=REPO_ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if proc.returncode != 0:
+        add_finding(findings, "warning", "tex_link_scan_failed", "TeX link scan command failed")
+        return
+    try:
+        result = json.loads(proc.stdout)
+    except json.JSONDecodeError:
+        add_finding(findings, "warning", "tex_link_scan_unreadable", "TeX link scan JSON output was unreadable")
+        return
+    for finding in result.get("findings", []):
+        severity = str(finding.get("severity", "warning"))
+        add_finding(
+            findings,
+            severity,
+            f"tex_{finding.get('code', 'link_issue')}",
+            f"{finding.get('message')} at {finding.get('path')}:{finding.get('line')}",
+            Path(str(finding.get("path"))) if finding.get("path") else None,
+        )
+
+
 def summarize(findings: list[dict[str, object]]) -> dict[str, int]:
     return {
         "critical": sum(1 for f in findings if f["severity"] == "critical"),
@@ -172,6 +199,7 @@ def main() -> int:
 
     if not args.skip_identity:
         check_identity_scan(findings)
+    check_tex_links(findings)
 
     summary = summarize(findings)
     result = {

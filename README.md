@@ -59,6 +59,8 @@ python scripts/build.py --target cumcm
 | `python scripts/check_skills.py skills/cumcm-final-review` | 检查 Codex skill frontmatter、TODO 和基础结构 |
 | `python scripts/check_submission.py --target cumcm` | 检查国赛电子版默认模式、构建产物和支撑材料基础风险 |
 | `python scripts/check_identity_leaks.py templates/cumcm` | 扫描电子版模板和材料中的潜在身份泄露 |
+| `python scripts/check_tex_links.py --target cumcm` | 检查国赛模板 TeX 输入、标签、引用、文献键和图表资源 |
+| `python scripts/check_tex_links.py --target cumcm --strict-placeholders` | 终稿阶段将缺失的 `\figplot` 占位图提升为 warning |
 
 指定 TeX 引擎路径（可选）：
 

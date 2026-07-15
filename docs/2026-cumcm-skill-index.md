@@ -33,6 +33,7 @@ Run:
 ```bash
 python3 scripts/check_skills.py skills
 python3 scripts/check_identity_leaks.py templates/cumcm
+python3 scripts/check_tex_links.py --target cumcm
 python3 scripts/check_submission.py --target cumcm
 git diff --check
 ```

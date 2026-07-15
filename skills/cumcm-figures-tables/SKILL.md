@@ -14,9 +14,10 @@ Use this skill to make results easy to inspect and defend.
 3. Use tables for numeric answers, parameter values, ablation results, and comparison metrics.
 4. Ensure captions state what is shown and why it matters.
 5. Check that every figure/table is referenced in the text.
-6. Read `references/checklist.md` when auditing all visuals.
-7. Read `references/plot-taxonomy.md`, `references/table-patterns.md`, and `references/caption-patterns.md` when planning or revising result presentation.
-8. Read `references/examples.md` when deciding whether to plan new visuals or audit existing ones.
+6. Run `python3 scripts/check_tex_links.py --target cumcm` when checking TeX labels, references, citations, and figure assets.
+7. Read `references/checklist.md` when auditing all visuals.
+8. Read `references/plot-taxonomy.md`, `references/table-patterns.md`, and `references/caption-patterns.md` when planning or revising result presentation.
+9. Read `references/examples.md` when deciding whether to plan new visuals or audit existing ones.
 
 ## LaTeX Notes
 

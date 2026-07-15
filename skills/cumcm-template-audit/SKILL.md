@@ -16,7 +16,7 @@ Use this skill for focused template review, not paper content judging.
    - commitment and numbering pages are opt-in
    - AI details are not inserted as a normal paper page
 4. Check local LaTeX conventions in `skills/modeling-paperkit/references/latex-patterns.md` if macros or style packages are being changed.
-5. Run `git diff --check`; run `python3 scripts/build.py --target cumcm` when `xelatex` exists.
+5. Run `git diff --check` and `python3 scripts/check_tex_links.py --target cumcm`; run `python3 scripts/build.py --target cumcm` when `xelatex` exists.
 6. Read `references/checklist.md` for the audit list.
 7. Read `references/format-rubric.md` for page-flow and layout details.
 8. Read `references/examples.md` when choosing electronic versus paper audit scope.
