@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Paper Structure"
+  short_description: "Shape a CUMCM paper into a strong section flow."
+  default_prompt: "Improve the CUMCM paper section structure and writing plan."

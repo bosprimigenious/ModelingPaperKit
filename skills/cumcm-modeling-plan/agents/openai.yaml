@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Modeling Plan"
+  short_description: "Turn CUMCM problem statements into modeling plans."
+  default_prompt: "Create a rigorous modeling plan for a CUMCM problem."

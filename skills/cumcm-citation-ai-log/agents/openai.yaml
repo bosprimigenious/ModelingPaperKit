@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Citation AI Log"
+  short_description: "Manage CUMCM citations, sources, and AI usage records."
+  default_prompt: "Review and improve citations, source logging, and AI usage records for CUMCM."

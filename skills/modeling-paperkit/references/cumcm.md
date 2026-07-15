@@ -19,7 +19,8 @@ python scripts/build.py --target cumcm
 Common sections:
 
 - `sections/cover.tex`
-- `sections/ai_declaration.tex`
+- `sections/numbering_page.tex`
+- `sections/ai_declaration.tex` (supporting-material template; not included in the submitted paper by default)
 - `sections/problem.tex`
 - `sections/analysis.tex`
 - `sections/assumptions.tex`
@@ -37,12 +38,12 @@ Common sections:
 
 - Paper title is set with `\PaperTitle`.
 - Chinese fonts may require SimSun, SimHei, FangSong, Microsoft YaHei.
-- Electronic submission may need cover/commitment pages removed from the submitted paper depending on current rules.
-- AI declaration and AI usage details must match current contest requirements.
+- Electronic submission must start from the abstract page; keep `\cumcmPaperSubmissionfalse` for the submitted PDF.
+- Paper submission can enable `\cumcmPaperSubmissiontrue` to generate commitment and numbering pages.
+- If no AI tools are used, keep the no-AI statement after references. If AI tools are used, mark the relevant body text, list the tools in references, and add a supporting-material PDF named `AI 工具使用详情`.
 - Supporting materials should not leak identity or school information.
 - Scan for phone, email, student number, advisor, school, and team member names.
 
 ## Safety
 
 During active CUMCM competition, follow `references/contest-safety.md` and avoid browsing public problem-discussion sources.
-

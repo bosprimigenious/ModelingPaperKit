@@ -6,6 +6,8 @@
 
 相关调研见：[数学建模 Skill 市场调研报告](math-modeling-skill-market-report.md)。
 
+2026 国赛专项 GitHub 开源生态与 skill 建设调研见：[2026 国赛备战：GitHub 开源生态与 Skill 建设调研](2026-cumcm-github-skill-research.md)。
+
 真实参赛流程调研见：[真实数学建模比赛工作流调研](real-competition-workflow-research.md)。
 
 全栈与 Agent 升级蓝图见：[ModelingPaperKit 升级架构蓝图](modeling-paperkit-upgrade-architecture.md)。

@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Figures Tables"
+  short_description: "Design strong figures and tables for CUMCM papers."
+  default_prompt: "Improve CUMCM paper figures, tables, captions, and result presentation."

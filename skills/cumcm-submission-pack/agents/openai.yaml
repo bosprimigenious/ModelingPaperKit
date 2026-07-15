@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Submission Pack"
+  short_description: "Prepare CUMCM paper and supporting material packages."
+  default_prompt: "Prepare the CUMCM submission package and checklist."

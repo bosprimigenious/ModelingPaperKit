@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Anonymity Check"
+  short_description: "Find identity leaks in CUMCM submissions."
+  default_prompt: "Scan the CUMCM paper and supporting materials for identity leaks."

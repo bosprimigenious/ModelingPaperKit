@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Template Audit"
+  short_description: "Audit CUMCM LaTeX templates for contest compliance."
+  default_prompt: "Audit the CUMCM template against 2026 submission requirements."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Data Code Pipeline"
+  short_description: "Organize reproducible data and code for CUMCM."
+  default_prompt: "Prepare a reproducible data and code pipeline for a CUMCM paper."

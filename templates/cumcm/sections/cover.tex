@@ -1,10 +1,10 @@
 % ============================================================
 %  CUMCM 承诺书 (国赛官方格式 — 填写报名信息后使用)
 %  注意：电子版论文中不得出现此页，仅纸质版使用
-%  % TODO(director): 请核对是否与 2026 年国赛最新承诺书版式一致
 % ============================================================
 
 % ── Token 默认值（在 main_cumcm.tex 中用 \cumcmXxx{} 覆盖） ──
+\providecommand{\pkb@submityear}{\the\year}
 \providecommand{\pkb@tihao}{[在此填写题号]}
 \providecommand{\pkb@baominghao}{[在此填写队号]}
 \providecommand{\pkb@schoolname}{[在此填写学校全称]}
@@ -15,6 +15,7 @@
 \providecommand{\pkb@submitmonth}{[月]}
 \providecommand{\pkb@submitday}{[日]}
 
+\newcommand{\cumcmSubmitYear}[1]{\renewcommand{\pkb@submityear}{#1}}
 \newcommand{\cumcmTihao}[1]{\renewcommand{\pkb@tihao}{#1}}
 \newcommand{\cumcmBaominghao}[1]{\renewcommand{\pkb@baominghao}{#1}}
 \newcommand{\cumcmSchoolname}[1]{\renewcommand{\pkb@schoolname}{#1}}
@@ -24,49 +25,54 @@
 \newcommand{\cumcmSupervisor}[1]{\renewcommand{\pkb@supervisor}{#1}}
 \newcommand{\cumcmSubmitDate}[2]{\renewcommand{\pkb@submitmonth}{#1}\renewcommand{\pkb@submitday}{#2}}
 
-\thispagestyle{plain}
+\thispagestyle{empty}
 
 \vspace*{0.1em}
 
-\begin{center}
-  {\yahei\zihao{3} 全国大学生数学建模竞赛}
-\end{center}
-
-\vspace{0.4em}
+\noindent{\songti\zihao{4}赛区评阅编号（由赛区组委会填写）：}\\[-0.45em]
+\noindent\rule{\textwidth}{0.5pt}
 
 \begin{center}
-  {\heiti\zihao{3} 承\quad 诺\quad 书}
+  {\heiti\zihao{-3} \pkb@submityear 高教社杯全国大学生数学建模竞赛}
 \end{center}
+
+\vspace{0.2em}
+
+\begin{center}
+  {\songti\bfseries\zihao{3} 承\quad 诺\quad 书}
+\end{center}
+
+\vspace{0.8em}
+
+\begingroup
+\songti\zihao{-4}
+我们仔细阅读了《全国大学生数学建模竞赛章程》和《全国大学生数学建模竞赛参赛规则》（以下简称“竞赛章程和参赛规则”，可从 http://www.mcm.edu.cn 下载）。
+
+我们完全清楚，在竞赛开始后参赛队员不能以任何方式，包括电话、电子邮件、“贴吧”、QQ群、微信群等，与队外的任何人（包括指导教师）交流、讨论与赛题有关的问题；无论主动参与讨论还是被动接收讨论信息都是严重违反竞赛纪律的行为。
+
+{\bfseries 我们以中国大学生名誉和诚信郑重承诺，严格遵守竞赛章程和参赛规则，以保证竞赛的公正、公平性。如有违反竞赛章程和参赛规则的行为，我们将受到严肃处理。}
+
+我们授权全国大学生数学建模竞赛组委会，可将我们的论文以任何形式进行公开展示（包括进行网上公示，在书籍、期刊和其他媒体进行正式或非正式发表等）。
+\endgroup
 
 \vspace{1.0em}
 
-我们仔细阅读了《全国大学生数学建模竞赛章程》和《全国大学生数学建模竞赛参赛规则》（以下简称"竞赛章程和参赛规则"）。
+\noindent {\zihao{-4} 我们参赛选择的题号（从 A/B/C/D/E 中选择一项填写）：}%
+\underline{\makebox[5.9cm][c]{\pkb@tihao}}
 
-我们完全明白，在竞赛开始后参赛队员不能以任何方式（包括电话、电子邮件、网上咨询等）与队外的任何人（包括指导教师）研究、讨论与赛题有关的问题。
+\vspace{0.55em}
 
-我们知道，抄袭别人的成果是违反竞赛规则和参赛规则的，如果引用别人的成果或其它公开的资料（包括网上查到的资料），必须按照规定的参考文献的表述方式在正文引用处和参考文献中明确列出。
+\noindent {\zihao{-4} 我们的报名参赛队号（12 位数字全国统一编号）：}%
+\underline{\makebox[5.9cm][c]{\pkb@baominghao}}
 
-我们郑重承诺，严格遵守竞赛章程和参赛规则，以保证竞赛的公正、公平性。如有违反竞赛章程和参赛规则的行为，我们将受到严肃处理。
+\vspace{0.55em}
 
-我们授权全国大学生数学建模竞赛组委会，可将我们的论文以任何形式进行公开展示（包括进行网上公示，在书籍、期刊和其他媒体进行正式或非正式发表等）。
+\noindent {\zihao{-4} 参赛学校（完整的学校全称，不含院系名）：}%
+\underline{\makebox[6.5cm][c]{\pkb@schoolname}}
 
-\vspace{1.1em}
+\vspace{0.95em}
 
-\noindent {\zihao{5} 参赛题号（从 A/B/C/D/E 中选择一项填写）：}%
-\underline{\makebox[7.2cm][c]{\pkb@tihao}}
-
-\vspace{0.65em}
-
-\noindent {\zihao{5} 参赛队号（12 位数字全国统一编号）：}%
-\underline{\makebox[7.8cm][c]{\pkb@baominghao}}
-
-\vspace{0.65em}
-
-\noindent 参赛学校（完整的学校全称，不含院系名）：\underline{\makebox[7.0cm][c]{\pkb@schoolname}}
-
-\vspace{0.65em}
-
-\noindent 参赛队员（打印并签名）：
+\noindent {\zihao{-4} 参赛队员（打印并签名）：}
 \vspace{0.2em}
 
 \hspace*{3em} 1. \underline{\makebox[7.0cm][c]{\pkb@membera}}
@@ -79,18 +85,22 @@
 
 \hspace*{3em} 3. \underline{\makebox[7.0cm][c]{\pkb@memberc}}
 
-\vspace{0.65em}
+\vspace{0.75em}
 
-\noindent 指导教师或指导教师组负责人（打印并签名）：\underline{\makebox[5.5cm][c]{\pkb@supervisor}}
+\noindent {\zihao{-4} 指导教师或指导教师组负责人（打印并签名）：}%
+\underline{\makebox[5.0cm][c]{\pkb@supervisor}}
 
-\vspace{0.65em}
+\par\vspace{0.2em}
+\hspace{0.1cm}{\songti 指导教师签名意味着对参赛队的行为和论文的真实性负责}
 
-\noindent 日期：\underline{\makebox[2.0cm][c]{\the\year}} 年
+\vspace{0.8em}
+
+\hspace*{7.4em}日期：
+\underline{\makebox[2.0cm][c]{\pkb@submityear}} 年
 \underline{\makebox[1.3cm][c]{\pkb@submitmonth}} 月
 \underline{\makebox[1.3cm][c]{\pkb@submitday}} 日
 
 \vfill
 
-\begin{center}
-  {\songti\zihao{-4} （请勿改动此页内容和格式。此承诺书打印签名后作为纸质论文的封面。\\注意电子版论文中不得出现此页。）}
-\end{center}
+\noindent{\songti\bfseries
+（请勿改动此页内容和格式。此承诺书打印签名后作为纸质论文的封面，注意电子版论文中不得出现此页。以上内容请仔细核对，如填写错误，论文可能被取消评奖资格。）}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM 2026 Rules Watch"
+  short_description: "Track and apply 2026 CUMCM rules."
+  default_prompt: "Check the latest 2026 CUMCM rules and update the repository guidance."

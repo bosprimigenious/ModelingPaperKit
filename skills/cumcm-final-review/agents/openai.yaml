@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Final Review"
+  short_description: "Run final quality review for 2026 CUMCM."
+  default_prompt: "Run a final review of the CUMCM paper, template, and submission materials."
