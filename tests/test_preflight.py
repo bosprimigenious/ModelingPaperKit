@@ -43,6 +43,31 @@ class PreflightTest(unittest.TestCase):
         codes = {finding["code"] for finding in result["findings"]}
         self.assertIn("missing_figplot_asset", codes)
 
+    def test_text_output_hides_info_by_default(self) -> None:
+        proc = subprocess.run(
+            [sys.executable, "scripts/preflight.py", "--target", "cumcm"],
+            cwd=REPO_ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(proc.returncode, 0, proc.stderr or proc.stdout)
+        self.assertIn("info findings hidden:", proc.stdout)
+        self.assertNotIn("[info]", proc.stdout)
+
+    def test_text_output_can_show_info(self) -> None:
+        proc = subprocess.run(
+            [sys.executable, "scripts/preflight.py", "--target", "cumcm", "--show-info"],
+            cwd=REPO_ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(proc.returncode, 0, proc.stderr or proc.stdout)
+        self.assertIn("[info]", proc.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -16,6 +16,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run ModelingPaperKit preflight checks")
     parser.add_argument("--target", default="cumcm", choices=["cumcm"])
     parser.add_argument("--format", choices=["text", "json"], default="text")
+    parser.add_argument("--show-info", action="store_true", help="Print info findings in text output")
     parser.add_argument("--strict-placeholders", action="store_true")
     parser.add_argument("--skip-skills", action="store_true")
     parser.add_argument("--skip-git-diff-check", action="store_true")
@@ -141,7 +142,13 @@ def main() -> int:
             f"summary: critical={result['summary']['critical']} "
             f"warning={result['summary']['warning']} info={result['summary']['info']}"
         )
-        for finding in result["findings"]:
+        visible_findings = [
+            finding for finding in result["findings"] if args.show_info or finding.get("severity") != "info"
+        ]
+        hidden_info = result["summary"]["info"] if not args.show_info else 0
+        if hidden_info:
+            print(f"info findings hidden: {hidden_info} (use --show-info to print them)")
+        for finding in visible_findings:
             path = finding.get("path")
             line = finding.get("line")
             loc = f" ({path}:{line})" if path and line else f" ({path})" if path else ""
