@@ -68,6 +68,24 @@ class PreflightTest(unittest.TestCase):
         self.assertEqual(proc.returncode, 0, proc.stderr or proc.stdout)
         self.assertIn("[info]", proc.stdout)
 
+    def test_submission_check_enforces_official_page_rules(self) -> None:
+        proc = subprocess.run(
+            [sys.executable, "scripts/check_submission.py", "--target", "cumcm", "--format", "json"],
+            cwd=REPO_ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(proc.returncode, 0, proc.stderr or proc.stdout)
+        result = json.loads(proc.stdout)
+        codes = {finding["code"] for finding in result["findings"]}
+        self.assertNotIn("table_of_contents_enabled", codes)
+        self.assertNotIn("missing_cover_input", codes)
+        self.assertNotIn("missing_numbering_page_input", codes)
+        self.assertNotIn("cover_outside_paper_mode", codes)
+        self.assertNotIn("numbering_page_outside_paper_mode", codes)
+
 
 if __name__ == "__main__":
     unittest.main()

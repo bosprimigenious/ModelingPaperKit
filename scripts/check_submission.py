@@ -62,8 +62,39 @@ def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="replace")
 
 
+def strip_comment(line: str) -> str:
+    escaped = False
+    out: list[str] = []
+    for char in line:
+        if char == "%" and not escaped:
+            break
+        out.append(char)
+        escaped = char == "\\" and not escaped
+        if char != "\\":
+            escaped = False
+    return "".join(out)
+
+
+def active_text(text: str) -> str:
+    return "\n".join(strip_comment(line) for line in text.splitlines())
+
+
+def paper_mode_input_status(clean_text: str, section: str) -> tuple[bool, bool]:
+    pattern = re.compile(rf"\\input\{{sections/{re.escape(section)}(?:\.tex)?\}}")
+    found = False
+    for match in pattern.finditer(clean_text):
+        found = True
+        before = clean_text[: match.start()]
+        last_if = before.rfind(r"\ifcumcmPaperSubmission")
+        last_fi = before.rfind(r"\fi")
+        if last_if == -1 or last_fi > last_if:
+            return found, False
+    return found, True
+
+
 def check_cumcm_template(findings: list[dict[str, object]], main_path: Path) -> None:
     text = read_text(main_path)
+    clean = active_text(text)
     if r"\cumcmPaperSubmissionfalse" not in text:
         add_finding(
             findings,
@@ -72,7 +103,7 @@ def check_cumcm_template(findings: list[dict[str, object]], main_path: Path) -> 
             "CUMCM electronic-safe default was not found",
             main_path,
         )
-    if re.search(r"^[^%]*\\cumcmPaperSubmissiontrue", text, re.MULTILINE):
+    if re.search(r"\\cumcmPaperSubmissiontrue", clean):
         add_finding(
             findings,
             "critical",
@@ -80,7 +111,33 @@ def check_cumcm_template(findings: list[dict[str, object]], main_path: Path) -> 
             "Paper submission mode appears enabled; electronic PDF may include paper-only pages",
             main_path,
         )
-    if re.search(r"^[^%]*\\input\{sections/ai_declaration", text, re.MULTILINE):
+    if re.search(r"\\tableofcontents\b", clean):
+        add_finding(
+            findings,
+            "critical",
+            "table_of_contents_enabled",
+            "CUMCM paper format forbids a table of contents in the main paper",
+            main_path,
+        )
+    for section in ("cover", "numbering_page"):
+        found, inside_paper_mode = paper_mode_input_status(clean, section)
+        if not found:
+            add_finding(
+                findings,
+                "critical",
+                f"missing_{section}_input",
+                f"{section}.tex must be available for paper-submission output",
+                main_path,
+            )
+        elif not inside_paper_mode:
+            add_finding(
+                findings,
+                "critical",
+                f"{section}_outside_paper_mode",
+                f"{section}.tex must only be included inside the paper-submission branch",
+                main_path,
+            )
+    if re.search(r"\\input\{sections/ai_declaration", clean):
         add_finding(
             findings,
             "critical",

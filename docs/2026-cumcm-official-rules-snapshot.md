@@ -60,6 +60,6 @@ the official pages before making final submission decisions.
 
 - `templates/cumcm/main_cumcm.tex` should keep electronic mode as the safe default.
 - `templates/cumcm/sections/cover.tex` and `numbering_page.tex` should remain paper-mode only.
-- `scripts/preflight.py` should continue to detect paper-mode leakage, identity terms, missing support-material lists, and AI-use record requirements.
+- `scripts/preflight.py` and `scripts/check_submission.py` should continue to detect paper-mode leakage, table-of-contents usage, paper-only front-page leakage, identity terms, missing support-material lists, and AI-use record requirements.
 - `skills/cumcm-citation-ai-log` should keep the AI-use-detail PDF and reference-entry workflow aligned with the 2025 trial AI rules until a newer official rule appears.
 - Re-check the first 2026 notice PDF before freezing the final submission checklist, because the HTML page only states that the notice is in the attachment.
