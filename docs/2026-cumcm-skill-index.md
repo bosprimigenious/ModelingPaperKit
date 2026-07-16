@@ -28,6 +28,9 @@ This index maps common 2026 CUMCM preparation tasks to the repository skills.
 
 ## Validation
 
+Use `docs/2026-cumcm-official-rules-snapshot.md` as the current official-source
+baseline for 2026 CUMCM template, AI-use, anonymity and submission-pack checks.
+
 Run:
 
 ```bash
