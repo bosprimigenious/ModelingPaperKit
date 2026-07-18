@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Contest Safety Mode"
+  short_description: "Keep active-contest work within rule boundaries."
+  default_prompt: "Review this CUMCM workflow for contest-safety risks."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Experiment Log"
+  short_description: "Track runs, parameters, metrics, and outputs."
+  default_prompt: "Create an experiment log for these CUMCM modeling runs."

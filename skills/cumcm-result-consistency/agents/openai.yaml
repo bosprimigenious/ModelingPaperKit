@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Result Consistency"
+  short_description: "Trace paper claims to figures, tables, and outputs."
+  default_prompt: "Check this CUMCM draft for result consistency."

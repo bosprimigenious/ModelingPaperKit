@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Problem Reading"
+  short_description: "Decompose CUMCM statements into tasks and deliverables."
+  default_prompt: "Read this CUMCM problem and produce a task matrix."

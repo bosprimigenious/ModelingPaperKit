@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Support Material Audit"
+  short_description: "Check support ZIP/RAR contents and reproducibility."
+  default_prompt: "Audit these CUMCM supporting materials before submission."

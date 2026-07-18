@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Baseline Models"
+  short_description: "Create defensible simple models and fallbacks."
+  default_prompt: "Propose baseline models for this CUMCM task."

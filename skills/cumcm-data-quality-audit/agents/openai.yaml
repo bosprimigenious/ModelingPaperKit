@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Data Quality Audit"
+  short_description: "Check contest datasets before modeling."
+  default_prompt: "Audit this CUMCM dataset and propose preprocessing decisions."

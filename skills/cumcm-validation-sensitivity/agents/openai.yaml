@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Validation Sensitivity"
+  short_description: "Plan robustness, validation, and sensitivity checks."
+  default_prompt: "Design validation and sensitivity tests for this CUMCM model."
