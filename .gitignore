@@ -69,3 +69,5 @@ scripts/task_runner.py
 # External skill symlinks (local absolute paths); keep README tracked
 external-skills/*/
 !external-skills/README.md
+external-skills/0*/
+external-skills/1*/
