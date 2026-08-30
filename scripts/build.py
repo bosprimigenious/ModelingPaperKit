@@ -80,8 +80,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--engine",
-        default="xelatex",
-        help="TeX 引擎可执行文件路径或命令名 (default: xelatex)",
+        default="auto",
+        help="TeX 引擎：auto|xelatex|tectonic|路径 (default: auto)",
     )
     parser.add_argument(
         "--watch",
@@ -173,6 +173,14 @@ def compile_target(
     out_dir = Path(output_dir) if output_dir else tex_dir / "out"
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    if engine in ("", "auto"):
+        if shutil.which("xelatex"):
+            engine = "xelatex"
+        elif shutil.which("tectonic"):
+            engine = "tectonic"
+        else:
+            print("[ERROR] 未找到 xelatex 或 tectonic")
+            return False
     if Path(engine).is_file():
         engine_cmd = str(Path(engine).resolve())
     elif shutil.which(engine):
@@ -180,42 +188,60 @@ def compile_target(
     else:
         print(f"[ERROR] 未找到 TeX 引擎: {engine}")
         return False
-
-    xelatex_args = [
-        "-interaction=nonstopmode",
-        f"-output-directory={out_dir}",
-        target["main"],
-    ]
+    use_tectonic = "tectonic" in Path(engine_cmd).name.lower()
 
     print(f"[BUILD] 编译 {target['description']} ({target_key})")
     print(f"[BUILD] 工作目录: {tex_dir}")
-    print(f"[BUILD] 引擎: {engine}")
+    print(f"[BUILD] 引擎: {engine_cmd}")
 
     log_file = out_dir / f"{main_stem}.log"
 
     try:
-        total_passes = 3
-        for i in range(total_passes):
-            print(f"[BUILD] xelatex ({i + 1}/{total_passes})")
-            proc = run_engine(engine_cmd, xelatex_args, tex_dir)
-            if proc.returncode != 0 and i == 0:
-                print(f"[ERROR] xelatex 失败 (exit code {proc.returncode})")
+        if use_tectonic:
+            print("[BUILD] tectonic compile")
+            # tectonic writes relative outdir from cwd
+            rel_out = out_dir if out_dir.is_absolute() else out_dir
+            try:
+                rel_out_arg = str(rel_out.relative_to(tex_dir))
+            except ValueError:
+                rel_out_arg = str(rel_out)
+            proc = run_engine(
+                engine_cmd,
+                ["-X", "compile", target["main"], "--outdir", rel_out_arg],
+                tex_dir,
+            )
+            if proc.returncode != 0:
+                print(f"[ERROR] tectonic 失败 (exit code {proc.returncode})")
                 print_log_hints(log_file)
                 return False
-            if use_bibtex and i == 0:
-                aux = out_dir / f"{main_stem}.aux"
-                if aux.exists():
-                    print("[BUILD] bibtex")
-                    bib_name = aux.relative_to(tex_dir).with_suffix("").as_posix()
-                    bib = run_engine("bibtex", [bib_name], tex_dir)
-                    if bib.returncode != 0:
-                        print(f"[WARN] bibtex 返回 {bib.returncode}，继续 xelatex")
-                else:
-                    print("[WARN] 未找到 .aux，跳过 bibtex")
-            if i > 0 and proc.returncode != 0:
-                print(f"[ERROR] xelatex 失败 (exit code {proc.returncode})")
-                print_log_hints(log_file)
-                return False
+        else:
+            xelatex_args = [
+                "-interaction=nonstopmode",
+                f"-output-directory={out_dir}",
+                target["main"],
+            ]
+            total_passes = 3
+            for i in range(total_passes):
+                print(f"[BUILD] xelatex ({i + 1}/{total_passes})")
+                proc = run_engine(engine_cmd, xelatex_args, tex_dir)
+                if proc.returncode != 0 and i == 0:
+                    print(f"[ERROR] xelatex 失败 (exit code {proc.returncode})")
+                    print_log_hints(log_file)
+                    return False
+                if use_bibtex and i == 0:
+                    aux = out_dir / f"{main_stem}.aux"
+                    if aux.exists():
+                        print("[BUILD] bibtex")
+                        bib_name = aux.relative_to(tex_dir).with_suffix("").as_posix()
+                        bib = run_engine("bibtex", [bib_name], tex_dir)
+                        if bib.returncode != 0:
+                            print(f"[WARN] bibtex 返回 {bib.returncode}，继续 xelatex")
+                    else:
+                        print("[WARN] 未找到 .aux，跳过 bibtex")
+                if i > 0 and proc.returncode != 0:
+                    print(f"[ERROR] xelatex 失败 (exit code {proc.returncode})")
+                    print_log_hints(log_file)
+                    return False
 
         pdf = out_dir / f"{main_stem}.pdf"
         if pdf.exists():

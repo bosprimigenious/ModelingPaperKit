@@ -11,17 +11,8 @@
 \usepackage{../../core/paperkit-utils}
 \input{../../core/paperkit-cref-zh.tex}
 
-% ── 中文字体 ──
-\setCJKmainfont[AutoFakeBold=2.2]{SimSun}
-\setCJKsansfont[AutoFakeBold=2.2]{SimHei}
-\setCJKmonofont{FangSong}
-\setCJKfamilyfont{zhsong}[AutoFakeBold=2.2]{SimSun}
-\setCJKfamilyfont{zhhei}[AutoFakeBold=2.2]{SimHei}
-\setCJKfamilyfont{zhyahei}[AutoFakeBold=2.2]{Microsoft YaHei}
-
-\newcommand{\songti}{\CJKfamily{zhsong}}
-\newcommand{\heiti}{\CJKfamily{zhhei}}
-\newcommand{\yahei}{\CJKfamily{zhyahei}}
+% ── 中文字体（SimSun 优先，macOS Songti SC 回退）──
+\input{../../core/paperkit-cjk-fonts.tex}
 
 \DeclareCaptionFont{capzh}{\songti}
 \captionsetup{

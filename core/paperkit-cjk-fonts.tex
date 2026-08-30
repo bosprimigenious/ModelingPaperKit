@@ -1,0 +1,18 @@
+% Portable CJK fonts for PaperKit Chinese templates (xe/tectonic).
+% Order: try Songti SC (macOS) first via explicit Path-free names; Windows
+% contest machines can redefine before this input or install SimSun.
+
+% Default: macOS Chinese fonts (always present on recent macOS).
+\setCJKmainfont[AutoFakeBold=2.2]{Songti SC}
+\setCJKsansfont[AutoFakeBold=2.2]{Heiti SC}
+\setCJKmonofont{Kaiti SC}
+\setCJKfamilyfont{zhsong}[AutoFakeBold=2.2]{Songti SC}
+\setCJKfamilyfont{zhhei}[AutoFakeBold=2.2]{Heiti SC}
+\setCJKfamilyfont{zhyahei}[AutoFakeBold=2.2]{Heiti SC}
+
+% Optional Windows override: create local `paperkit-cjk-fonts-local.tex` with SimSun block.
+\InputIfFileExists{paperkit-cjk-fonts-local.tex}{}{}
+
+\newcommand{\songti}{\CJKfamily{zhsong}}
+\newcommand{\heiti}{\CJKfamily{zhhei}}
+\newcommand{\yahei}{\CJKfamily{zhyahei}}

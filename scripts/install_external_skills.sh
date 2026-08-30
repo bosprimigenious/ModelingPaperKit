@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-# Install/repair external math-modeling skill symlinks into this repo and the contest repo.
+# Install/repair external math-modeling skill symlinks (community catalog).
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-# Prefer repo root = parent of scripts/
 ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 CATALOG="${MATH_MODELING_SKILLS_CATALOG:-$HOME/Projects/FullStack/math_modeling_skills_catalog}"
 MM="${MATH_MODELING_CONTEST_REPO:-$HOME/Projects/FullStack/math_modeling2026}"
@@ -21,6 +20,8 @@ clone_one() {
 }
 
 echo "Catalog: $CATALOG"
+
+# Batch 1
 clone_one https://github.com/XiaoMaColtAI/math-modeling-skill.git XiaoMaColtAI-math-modeling-skill
 clone_one https://github.com/yushui2022/MathModel-Skill.git yushui2022-MathModel-Skill
 clone_one https://github.com/Lupynow/math-modeling-skills.git Lupynow-math-modeling-skills
@@ -34,11 +35,22 @@ clone_one https://github.com/VectorAC/math-modeling-skill.git VectorAC-math-mode
 clone_one https://github.com/ai-lcs/math-modeling.skill.git ai-lcs-math-modeling.skill
 clone_one https://github.com/gdl1605/MCM.skill.git gdl1605-MCM.skill
 
+# Batch 2 — community / GitHub extras
+clone_one https://github.com/zhnnky329/MathModeling-skills.git zhnnky329-MathModeling-skills
+clone_one https://github.com/xzwwwwww/Enhanced-mathmodel-Codex-skills.git xzwwwwww-Enhanced-mathmodel-Codex-skills
+clone_one https://github.com/Yoki-cmd/math-modeling-single.git Yoki-cmd-math-modeling-single
+clone_one https://github.com/jihe520/MathModelAgent.git jihe520-MathModelAgent
+clone_one https://github.com/usail-hkust/LLM-MM-Agent.git usail-hkust-LLM-MM-Agent
+clone_one https://github.com/LiXiang106991/MathModelAgent.git LiXiang106991-MathModelAgent
+clone_one https://github.com/skillforCUMCM/math-modeling-skill-pro.git skillforCUMCM-math-modeling-skill-pro
+clone_one https://github.com/y3519712124-ui/math-modeling-contest-route-selection.git y351-route-selection
+clone_one https://github.com/capwitf/My-MathModeling-skills.git capwitf-My-MathModeling-skills
+clone_one https://github.com/Leionel/math-model-skill.git Leionel-math-model-skill
+
 link_into() {
   local dest_root="$1"
   local ext="$dest_root/external-skills"
   mkdir -p "$ext"
-  # Keep README if present
   declare -a MAP=(
     "01-xiaoma-math-modeling-skill|XiaoMaColtAI-math-modeling-skill"
     "02-yushui-MathModel-Skill|yushui2022-MathModel-Skill"
@@ -52,6 +64,16 @@ link_into() {
     "10-vectorac-math-modeling-skill|VectorAC-math-modeling-skill"
     "11-ailcs-math-modeling.skill|ai-lcs-math-modeling.skill"
     "12-gdl1605-MCM.skill|gdl1605-MCM.skill"
+    "13-zhnnky329-MathModeling-skills|zhnnky329-MathModeling-skills"
+    "14-enhanced-mathmodel-codex|xzwwwwww-Enhanced-mathmodel-Codex-skills"
+    "15-yoki-math-modeling-single|Yoki-cmd-math-modeling-single"
+    "16-jihe520-MathModelAgent|jihe520-MathModelAgent"
+    "17-usail-LLM-MM-Agent|usail-hkust-LLM-MM-Agent"
+    "18-lixiang-MathModelAgent|LiXiang106991-MathModelAgent"
+    "19-skillforCUMCM-pro|skillforCUMCM-math-modeling-skill-pro"
+    "20-y351-route-selection|y351-route-selection"
+    "21-capwitf-My-MathModeling|capwitf-My-MathModeling-skills"
+    "22-leionel-math-model-skill|Leionel-math-model-skill"
   )
   for item in "${MAP[@]}"; do
     name="${item%%|*}"
@@ -59,12 +81,11 @@ link_into() {
     src="$CATALOG/$src_name"
     if [ -e "$src" ]; then
       ln -sfn "$src" "$ext/$name"
-      echo "LINK $dest_root/external-skills/$name"
+      echo "LINK $ext/$name"
     else
       echo "SKIP $name (missing $src)"
     fi
   done
-  # Ensure README exists
   if [ -f "$ROOT/external-skills/README.md" ] && [ "$dest_root" != "$ROOT" ]; then
     cp -f "$ROOT/external-skills/README.md" "$ext/README.md"
   fi
@@ -77,4 +98,4 @@ else
   echo "Contest repo not found: $MM (skipped)"
 fi
 
-echo "Done."
+echo "Done. Catalog entries: $(ls -1 "$CATALOG" | wc -l | tr -d ' ')"

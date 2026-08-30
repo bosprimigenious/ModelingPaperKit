@@ -28,5 +28,8 @@ When writing or editing any contest paper `.tex` (templates or contest packages)
 ## External skills (reference only)
 
 See `external-skills/README.md`. Do not treat vendor skills as final authority.
+Writing / humanize arsenal: `writing-skills/README.md` (H=EN humanize, Z=中文去味, A=学术管线).
 Native gates: `check_prose_style`, `check_model_fitness`, `preflight`, `skills/cumcm-*`.
-Repair links: `bash scripts/install_external_skills.sh`.
+Repair links: `bash scripts/install_external_skills.sh`；写作软链：`bash scripts/install_writing_skills.sh`.
+
+竞赛仓 loop（字体/AI详情/writing/prose/model/lock/paper）：见竞赛仓 `docs/MODELING_LOOP.md` 与 `scripts/modeling_loop_manager.py`（本仓有副本）。状态落在 `math_modeling2026/iterator/`。
