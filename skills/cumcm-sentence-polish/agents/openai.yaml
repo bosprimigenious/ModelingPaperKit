@@ -1,0 +1,4 @@
+interface:
+  display_name: "CUMCM Sentence Polish"
+  short_description: "Polish CUMCM paper prose with fact preservation"
+  default_prompt: "Use $cumcm-sentence-polish to polish this CUMCM paper section without changing facts, formulas, labels, or numeric results."

@@ -1,23 +1,19 @@
 # ModelingPaperKit Tasks
 
-Last updated: 2026-06-09
+Last updated: 2026-08-29
 
-This task plan combines:
+## Active sprint: CUMCM gates (ACCEPTED baseline)
 
-- `docs/math-modeling-skill-market-report.md`
-- `docs/real-competition-workflow-research.md`
-- `docs/modeling-paperkit-skill-plan.md`
-- `docs/modeling-paperkit-upgrade-architecture.md`
-- `docs/modeling-paperkit-frontend-plan.md`
+Completed in-repo (do not re-implement as Phase 0 TODOs below without re-reading the tree):
 
-The main decision is:
+- Deterministic checkers: inspect_template, summarize_build_log, check_tex_links, check_submission, check_identity_leaks, check_skills, preflight
+- **New 2026-08-29:** `check_skill_contract.py`, `check_prose_style.py`, `check_claim_coverage.py`, `sync_to_contest_repo.py`, per-skill `acceptance.md`, `docs/repo-sync.md`, upgraded skill index
+- Prose fixtures: `tests/fixtures/prose_{bad,good}.tex`
+- Sentence polish backported + banned/meta rules
 
-```text
-Build deterministic repository capabilities first.
-Wrap them as a modeling-paperkit skill.
-Then build a lightweight CLI Agent.
-Only after that, build the full-stack Studio.
-```
+Deferred: Studio/WebUI, full auto-modeling agent, LLM-as-judge for “correct answer”.
+
+---
 
 ## Current Execution Plan
 

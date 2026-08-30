@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "description": "Shared banned prose rules for CUMCM body text. Loaded by check_prose_style.py and documented in skills.",
+  "ai_filler": [
+    {"code": "ai_filler_recent_years", "pattern": "近年来", "flags": []},
+    {"code": "ai_filler_with_development", "pattern": "随着.{0,20}的(?:快速)?发展", "flags": []},
+    {"code": "ai_filler_important", "pattern": "具有(?:重要|重大|深远)?(?:的)?意义", "flags": []},
+    {"code": "ai_filler_certain_study", "pattern": "进行了一定(?:的)?研究", "flags": []},
+    {"code": "ai_filler_good_effect", "pattern": "效果(?:较)?好", "flags": []},
+    {"code": "ai_filler_relatively_reasonable", "pattern": "较为合理", "flags": []},
+    {"code": "ai_filler_well_known", "pattern": "众所周知", "flags": []},
+    {"code": "ai_filler_empower", "pattern": "赋能", "flags": []},
+    {"code": "ai_filler_assist", "pattern": "(?<![a-zA-Z])助力(?![a-zA-Z])", "flags": []},
+    {"code": "ai_filler_deep_fusion", "pattern": "深度融合", "flags": []},
+    {"code": "ai_filler_comprehensively", "pattern": "全面(?:地)?(?:提升|提高|改善)", "flags": []},
+    {"code": "ai_filler_to_some_extent", "pattern": "在一定程度上", "flags": []},
+    {"code": "ai_filler_plays_role", "pattern": "发挥着?(?:重要|关键)?作用", "flags": []},
+    {"code": "ai_filler_not_only", "pattern": "不仅(?:仅)?可以.{0,30}还可以", "flags": []},
+    {"code": "ai_filler_broad_prospects", "pattern": "广阔的应用前景", "flags": []},
+    {"code": "ai_filler_provide_reference", "pattern": "提供(?:了)?(?:一定的)?参考(?:意义|价值)?", "flags": []},
+    {"code": "ai_filler_worth_noting", "pattern": "值得注意的是", "flags": []},
+    {"code": "ai_filler_need_point_out", "pattern": "需要指出的是", "flags": []},
+    {"code": "ai_filler_not_hard_find", "pattern": "不难发现", "flags": []},
+    {"code": "ai_filler_easy_see", "pattern": "容易看出|显而易见", "flags": []},
+    {"code": "ai_filler_in_summary_empty", "pattern": "综上所述[，,]?(?:本文|我们)?", "flags": []},
+    {"code": "ai_filler_in_short", "pattern": "总而言之|简而言之", "flags": []}
+  ],
+  "hollow_inference": [
+    {"code": "hollow_according_to_know", "pattern": "根据.{0,40}(?:可)?知", "flags": []},
+    {"code": "hollow_from_know", "pattern": "由.{0,40}(?:可)?知", "flags": []},
+    {"code": "hollow_thus_see", "pattern": "由此(?:可)?见", "flags": []},
+    {"code": "hollow_thus_get", "pattern": "由此(?:可)?得", "flags": []},
+    {"code": "hollow_it_follows", "pattern": "据此(?:可)?(?:知|得|见)", "flags": []},
+    {"code": "hollow_we_can_conclude", "pattern": "我们(?:可以)?得出(?:如下)?结论", "flags": []},
+    {"code": "hollow_can_be_seen_en", "pattern": "\\b(?:It can be seen|As can be seen|We can see that|It is clear that)\\b", "flags": ["I"]},
+    {"code": "hollow_therefore_en", "pattern": "\\b(?:Therefore|Thus|Hence),\\s", "flags": ["I"]},
+    {"code": "hollow_however_en", "pattern": "\\bHowever,\\s", "flags": ["I"]},
+    {"code": "hollow_ever_en", "pattern": "\\b[Ee]ver\\b", "flags": []},
+    {"code": "hollow_raner", "pattern": "(?:^|[。；;])然而[，,]", "flags": []},
+    {"code": "hollow_danshi_start", "pattern": "(?:^|[。；;])但是[，,]", "flags": []}
+  ],
+  "meta": [
+    {"code": "meta_do_not_cn", "pattern": "(?:请)?不要(?:做|用|写|放|包含|引入|使用|将)", "flags": []},
+    {"code": "meta_please_do_not", "pattern": "请勿", "flags": []},
+    {"code": "meta_forbid", "pattern": "禁止(?:使用|写入|出现|包含)", "flags": []},
+    {"code": "meta_do_not_en", "pattern": "\\bDo not\\b", "flags": ["I"]},
+    {"code": "meta_you_should_not", "pattern": "\\bYou should not\\b", "flags": ["I"]},
+    {"code": "meta_as_ai", "pattern": "作为(?:一名)?(?:AI|人工智能|大模型|助手)", "flags": []},
+    {"code": "meta_i_will_help", "pattern": "我将(?:会)?帮(?:你|您)", "flags": []},
+    {"code": "meta_according_to_request", "pattern": "根据你(?:的)?要求", "flags": []},
+    {"code": "meta_as_requested", "pattern": "按(?:照)?你的(?:要求|指示)", "flags": []},
+    {"code": "meta_this_skill", "pattern": "本 skill|该 skill|this skill", "flags": ["I"]},
+    {"code": "meta_guardrail", "pattern": "Guardrails?|Must not enter the paper", "flags": ["I"]}
+  ],
+  "weak": [
+    {"code": "weak_empty_conclusion", "pattern": "模型(?:具有|显示)(?:一定)?(?:的)?(?:准确|实用|可靠)性", "flags": []},
+    {"code": "weak_studied_problem", "pattern": "对(?:该|此)?问题进行了研究", "flags": []}
+  ]
+}

@@ -28,3 +28,10 @@ Use this skill to turn modeling work into a coherent paper.
 - Do not invent results, data, citations, or performance numbers.
 - Flag placeholders that must be filled during the actual contest.
 - Keep writing competition-ready but not over-polished into vague marketing prose.
+
+## Prose constraint
+
+Before drafting section text, read `../cumcm-sentence-polish/references/banned-prose.md`.
+Do not use 根据…可知 / 由此可见 / empty However-Therefore openers / AI filler in body.
+After edits: `python3 scripts/check_prose_style.py --path <section.tex> --strict-prose`.
+

@@ -18,7 +18,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--format", choices=["text", "json"], default="text")
     parser.add_argument("--show-info", action="store_true", help="Print info findings in text output")
     parser.add_argument("--strict-placeholders", action="store_true")
+    parser.add_argument(
+        "--strict-prose",
+        action="store_true",
+        help="Promote AI-filler prose findings to critical",
+    )
     parser.add_argument("--skip-skills", action="store_true")
+    parser.add_argument("--skip-skill-contract", action="store_true")
+    parser.add_argument("--skip-prose", action="store_true")
+    parser.add_argument(
+        "--artifacts",
+        default=None,
+        help="If set, run claim coverage and model fitness on this artifacts directory",
+    )
     parser.add_argument("--skip-git-diff-check", action="store_true")
     return parser.parse_args()
 
@@ -116,20 +128,86 @@ def main() -> int:
     args = parse_args()
     results: list[dict[str, object]] = []
 
-    results.append(run_json_tool("inspect_template", ["scripts/inspect_template.py", "--target", args.target, "--format", "json"]))
-    results.append(run_json_tool("check_identity_leaks", ["scripts/check_identity_leaks.py", "templates/cumcm", "--format", "json"]))
+    results.append(
+        run_json_tool(
+            "inspect_template",
+            ["scripts/inspect_template.py", "--target", args.target, "--format", "json"],
+        )
+    )
+    results.append(
+        run_json_tool(
+            "check_identity_leaks",
+            ["scripts/check_identity_leaks.py", "templates/cumcm", "--format", "json"],
+        )
+    )
 
     tex_args = ["scripts/check_tex_links.py", "--target", args.target, "--format", "json"]
     if args.strict_placeholders:
         tex_args.append("--strict-placeholders")
     results.append(run_json_tool("check_tex_links", tex_args))
 
-    submission_args = ["scripts/check_submission.py", "--target", args.target, "--format", "json"]
-    results.append(run_json_tool("check_submission", submission_args))
-    results.append(run_json_tool("summarize_build_log", ["scripts/summarize_build_log.py", "--target", args.target, "--format", "json"]))
+    results.append(
+        run_json_tool(
+            "check_submission",
+            ["scripts/check_submission.py", "--target", args.target, "--format", "json"],
+        )
+    )
+    results.append(
+        run_json_tool(
+            "summarize_build_log",
+            ["scripts/summarize_build_log.py", "--target", args.target, "--format", "json"],
+        )
+    )
+
+    if not args.skip_prose:
+        prose_args = [
+            "scripts/check_prose_style.py",
+            "--target",
+            args.target,
+            "--format",
+            "json",
+        ]
+        if args.strict_prose:
+            prose_args.append("--strict-prose")
+        results.append(run_json_tool("check_prose_style", prose_args))
+
+    if args.artifacts:
+        results.append(
+            run_json_tool(
+                "check_claim_coverage",
+                [
+                    "scripts/check_claim_coverage.py",
+                    "--artifacts",
+                    args.artifacts,
+                    "--format",
+                    "json",
+                ],
+            )
+        )
+        results.append(
+            run_json_tool(
+                "check_model_fitness",
+                [
+                    "scripts/check_model_fitness.py",
+                    "--artifacts",
+                    args.artifacts,
+                    "--format",
+                    "json",
+                ],
+            )
+        )
 
     if not args.skip_skills:
-        results.append(run_text_check("check_skills", [sys.executable, "scripts/check_skills.py", "skills"]))
+        results.append(
+            run_text_check("check_skills", [sys.executable, "scripts/check_skills.py", "skills"])
+        )
+    if not args.skip_skill_contract:
+        results.append(
+            run_json_tool(
+                "check_skill_contract",
+                ["scripts/check_skill_contract.py", "skills", "--format", "json"],
+            )
+        )
     if not args.skip_git_diff_check:
         results.append(run_text_check("git_diff_check", ["git", "diff", "--check"]))
 
@@ -143,7 +221,9 @@ def main() -> int:
             f"warning={result['summary']['warning']} info={result['summary']['info']}"
         )
         visible_findings = [
-            finding for finding in result["findings"] if args.show_info or finding.get("severity") != "info"
+            finding
+            for finding in result["findings"]
+            if args.show_info or finding.get("severity") != "info"
         ]
         hidden_info = result["summary"]["info"] if not args.show_info else 0
         if hidden_info:

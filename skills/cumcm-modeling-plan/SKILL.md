@@ -28,3 +28,12 @@ Use this skill before writing code or prose for a contest problem.
 - Separate assumptions from conclusions.
 - Mark dependencies on unavailable data or ambiguous problem wording.
 - Prefer robust, explainable methods over brittle novelty unless the problem rewards it.
+
+## After plan lock
+
+Run **`cumcm-model-fitness`** before heavy coding:
+
+1. Fill `artifacts/model_fitness.md` (template in that skill).
+2. Each subproblem needs PASS or time-boxed REFINE — not “model sounds good”.
+3. `python3 scripts/check_model_fitness.py --artifacts artifacts`
+
